@@ -1,22 +1,15 @@
 import { ethers } from 'ethers';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { Address, useContractEvent } from 'wagmi';
+import { useMemo } from 'react';
 import {
+  Address,
   useAccount,
   useContractWrite,
-  useWaitForTransaction,
   usePrepareContractWrite,
   useSigner,
+  useWaitForTransaction,
 } from 'wagmi';
 import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';
-import {
-  PlayerBox,
-  Players,
-  PlayerSeparatorContainer,
-  Section,
-} from './App.css';
-import { LoadingRipple } from './Ripple200';
+import { PlayerBox, Players, PlayerSeparatorContainer } from './App.css';
 
 export const Deposit = ({
   escrowAddress,
@@ -39,10 +32,7 @@ export const Deposit = ({
   player2HasDeposited: boolean;
   betAmountStr: string;
 }) => {
-  const ARBITER_ADDRESS = '0x58438bdd4579f412279dc5bc4763dfe740a7a91f';
-
-  const { address, isConnected } = useAccount();
-  const { data: signer } = useSigner();
+  const { address } = useAccount();
 
   const { config } = usePrepareContractWrite({
     address: escrowAddress,
@@ -98,6 +88,7 @@ export const Deposit = ({
             <label style={{ marginTop: '1rem' }}>Bet Amount</label>
             <input disabled value={'Ξ 0.1'} />
           </div>
+          {/*TODO: add loading state to button */}
           <button
             style={{
               marginTop: '1rem',
@@ -106,11 +97,12 @@ export const Deposit = ({
               height: '1.75rem',
             }}
             disabled={!write || !isP1Active || player1HasDeposited}
+
             onClick={() => {
               write?.();
             }}
           >
-            { player1HasDeposited ? 'Deposited' : 'Deposit' }
+            {player1HasDeposited ? 'Deposited' : 'Deposit'}
           </button>
         </div>
 
@@ -145,6 +137,7 @@ export const Deposit = ({
             <label style={{ marginTop: '1rem' }}>Bet Amount</label>
             <input disabled value={'Ξ 0.1'} />
           </div>
+          {/*TODO: add loading state to button */}
           <button
             style={{
               marginTop: '1rem',
@@ -157,7 +150,7 @@ export const Deposit = ({
               write?.();
             }}
           >
-            { player2HasDeposited ? 'Deposited' : 'Deposit' }
+            {player2HasDeposited ? 'Deposited' : 'Deposit'}
           </button>
         </div>
       </div>

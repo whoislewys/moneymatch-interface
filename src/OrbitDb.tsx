@@ -62,7 +62,7 @@ export const OrbitDb = () => {
       const orbitdb = await OrbitDB.createInstance(ipfs, { identity } );
       // const orbitdb = await OrbitDB.createInstance(ipfs);
       setDb(orbitdb);
-      console.log('orbitdb identity', orbitdb.identity);
+      // console.log('orbitdb identity', orbitdb.identity);
       console.log(
         'orbitdb identity id (multihash, same as id of ipfs node): ',
         // @ts-ignore

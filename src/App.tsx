@@ -1,7 +1,7 @@
 import * as Separator from '@radix-ui/react-separator';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ethers } from 'ethers';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import {
   Address,
@@ -15,25 +15,23 @@ import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/E
 import { Header, HeaderSeparator, LeftNav, Main, Nav } from './App.css';
 import { CreateBet } from './CreateBet';
 import { Deposit } from './Deposit';
-import {LoadingRipple} from './Ripple200';
 
 export function App() {
+  // wagmi hooks
   const { data: signer } = useSigner();
   const provider = useProvider();
   const { address, isConnected } = useAccount();
 
+  // bet creation
   const [activeEscrowAddress, setActiveEscrowAddress] = useState<Address>(
     ethers.constants.AddressZero
   );
-
-  // URL Params
   const url = useMemo(() => {
     return new URL(window.location.href);
   }, []);
   const params = useMemo(() => {
     return new URLSearchParams(url.search);
   }, [url]);
-
   // PLAYER 1
   const [isP1Active] = useState(
     params.get('isP1Active') === 'true' || params.get('isP1Active') === null
@@ -44,13 +42,11 @@ export function App() {
   const [p1Address, setP1Address] = useState<Address>(
     (params.get('p1Address') as Address) ?? ethers.constants.AddressZero
   );
-
   // PLAYER 2
   const [p2ConnectCode, setP2ConnectCode] = useState('');
   const [p2Address, setP2Address] = useState<Address>(
     ethers.constants.AddressZero
   );
-
   // BOTH PLAYERS
   const [betAmountStr] = useState('0.1');
 
@@ -74,7 +70,7 @@ export function App() {
       player2Address,
       escrowAddress
     ) => {
-      console.log('escrow created');
+      console.log('EscrowCreated');
       // Wagmi is infurating for contract events, can't get multiple events or use query filters on the useContract result apparently (had to make my own ethers contract)
       toast.success('Escrow created!');
 
@@ -103,7 +99,7 @@ export function App() {
     abi: Escrow__factory.abi,
     eventName: 'Deposited',
     listener: (depositorAddress) => {
-      console.log('deposited');
+      console.log('Deposited');
       if (depositorAddress === p1Address) {
         setPlayer1HasDeposited(true);
         toast.success('Player 1 deposited');
@@ -114,10 +110,37 @@ export function App() {
     },
   });
 
-  const getScreen = () => {
+  // Once players have deposited, watch for game start
+  const [gameStarted, setGameStarted] = useState(false);
+  useContractEvent({
+    address: activeEscrowAddress,
+    abi: Escrow__factory.abi,
+    eventName: 'GameStarted',
+    listener: () => {
+      console.log('GameStarted');
+      setGameStarted(true);
+    },
+  });
+
+  // Once game has started, watch for game end
+  const [gameEnded, setGameEnded] = useState(false);
+  const [winner, setWinner] = useState<Address>(ethers.constants.AddressZero);
+  useContractEvent({
+    address: activeEscrowAddress,
+    abi: Escrow__factory.abi,
+    eventName: 'GameEnded',
+    listener: (winner) => {
+      console.log('GameEnded');
+      setWinner(winner);
+      setGameEnded(true);
+    },
+  });
+
+  const getScreen = useCallback(() => {
     console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
     console.log('[getscreen] player1HasDeposited', player1HasDeposited);
     console.log('[getscreen] player2HasDeposited', player2HasDeposited);
+    console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
     if (activeEscrowAddress === ethers.constants.AddressZero) {
       // MVP Create Bet Screen. bet amount values hardcoded, p1 fills out his bet copies link, sends it to p2
       return (
@@ -134,7 +157,11 @@ export function App() {
       );
       // More advanced Create Bet Screen. for letting two players connect p2p and update bet values in real time
       // return <CreateBetMultiTenant />
-    } else if (activeEscrowAddress !== ethers.constants.AddressZero && (!player1HasDeposited && !player2HasDeposited)) {
+    } else if (
+      activeEscrowAddress !== ethers.constants.AddressZero &&
+      !player1HasDeposited &&
+      !player2HasDeposited
+    ) {
       // TODO: should i do a time-related check in addition to activeEscrowAddress to account for players playing multiple games?
       //  could do a check on gameOver on the Escrow contract
       return (
@@ -150,11 +177,21 @@ export function App() {
           betAmountStr={betAmountStr}
         />
       );
-    } else if (player1HasDeposited && player2HasDeposited) {
-      return <p>Game in progress...</p>
+    } else if (player1HasDeposited && player2HasDeposited && !gameStarted) {
+      return <p>Waiting for game...</p>;
+    } else if (player1HasDeposited && player2HasDeposited && gameStarted) {
+      return <p>Game in progress...</p>;
+    } else if (gameStarted && gameEnded) {
+      // TODO: game end screen
+      return <p>game over! winner: ${winner}</p>;
     }
-    // TODO: game end screen
-  };
+  }, [
+    activeEscrowAddress,
+    player1HasDeposited,
+    player2HasDeposited,
+    gameStarted,
+    gameEnded,
+  ]);
 
   return (
     <main className={Main}>

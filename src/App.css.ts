@@ -39,6 +39,7 @@ export const Main = style({
 });
 
 export const Header = style({
+  display: 'flex',
   height: '69px',
   paddingLeft: '4rem',
   paddingRight: '4rem',

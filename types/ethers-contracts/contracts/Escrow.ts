@@ -42,7 +42,7 @@ export declare namespace Escrow {
 export interface EscrowInterface extends utils.Interface {
   functions: {
     "claimWinnings()": FunctionFragment;
-    "deposit(string)": FunctionFragment;
+    "deposit(address)": FunctionFragment;
     "endGame((string,bytes))": FunctionFragment;
     "gameEnded()": FunctionFragment;
     "gameStarted()": FunctionFragment;
@@ -148,13 +148,22 @@ export interface EscrowInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "winnings", data: BytesLike): Result;
 
   events: {
+    "Deposited(address)": EventFragment;
     "GameEnded(address)": EventFragment;
     "GameStarted(address,string,address,string)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "Deposited"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GameEnded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "GameStarted"): EventFragment;
 }
+
+export interface DepositedEventObject {
+  depositer: string;
+}
+export type DepositedEvent = TypedEvent<[string], DepositedEventObject>;
+
+export type DepositedEventFilter = TypedEventFilter<DepositedEvent>;
 
 export interface GameEndedEventObject {
   winner: string;
@@ -208,7 +217,7 @@ export interface Escrow extends BaseContract {
     ): Promise<ContractTransaction>;
 
     deposit(
-      _playerId: PromiseOrValue<string>,
+      depositorAddress: PromiseOrValue<string>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -251,7 +260,7 @@ export interface Escrow extends BaseContract {
   ): Promise<ContractTransaction>;
 
   deposit(
-    _playerId: PromiseOrValue<string>,
+    depositorAddress: PromiseOrValue<string>,
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -292,7 +301,7 @@ export interface Escrow extends BaseContract {
     claimWinnings(overrides?: CallOverrides): Promise<void>;
 
     deposit(
-      _playerId: PromiseOrValue<string>,
+      depositorAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -329,6 +338,11 @@ export interface Escrow extends BaseContract {
   };
 
   filters: {
+    "Deposited(address)"(
+      depositer?: PromiseOrValue<string> | null
+    ): DepositedEventFilter;
+    Deposited(depositer?: PromiseOrValue<string> | null): DepositedEventFilter;
+
     "GameEnded(address)"(winner?: null): GameEndedEventFilter;
     GameEnded(winner?: null): GameEndedEventFilter;
 
@@ -352,7 +366,7 @@ export interface Escrow extends BaseContract {
     ): Promise<BigNumber>;
 
     deposit(
-      _playerId: PromiseOrValue<string>,
+      depositorAddress: PromiseOrValue<string>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -392,7 +406,7 @@ export interface Escrow extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     deposit(
-      _playerId: PromiseOrValue<string>,
+      depositorAddress: PromiseOrValue<string>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

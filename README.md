@@ -14,3 +14,12 @@ To learn more about [Vite](https://vitejs.dev/), [RainbowKit](https://rainbowkit
 - [wagmi Examples](https://wagmi.sh/examples/connect-wallet) – a suite of simple examples using wagmi.
 - [RainbowKit Documentation](https://rainbowkit.com/docs/introduction) – learn more about RainbowKit (configuration, theming, advanced usage, etc).
 - [Vite Documentation](https://vitejs.dev/) – learn about Vite features and API.
+
+
+## learnings
+Lesson: Just learned the hard way you can't decode indexed string values in solidity events
+need to index the player ids for the arbiter to find the escrow creation events for given game between users
+and need the updated player id values to update ui for both players when the escrow is created
+
+Soooo instead of being able to get the player ids off the EscrowCreated event, pluck off the address of the newly created Escrow, then query that Escrow contract for player1Id and player2Id
+

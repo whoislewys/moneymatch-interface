@@ -3,8 +3,9 @@ import { configureChains, createClient } from 'wagmi'
 import { goerli, mainnet } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
+console.log(import.meta.env?.MODE)
 const { chains, provider, webSocketProvider } = configureChains(
-  [mainnet, ...(import.meta.env?.MODE === 'development' ? [goerli] : [])],
+  [...(import.meta.env?.MODE === 'development' ? [goerli] : []), mainnet],
   [
     publicProvider(),
   ],

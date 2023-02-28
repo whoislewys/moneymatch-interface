@@ -7,8 +7,11 @@ import {
   Address,
   useAccount,
   useContractEvent,
+  useContractWrite,
+  usePrepareContractWrite,
   useProvider,
   useSigner,
+  useWaitForTransaction,
 } from 'wagmi';
 import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
 import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';
@@ -136,6 +139,21 @@ export function App() {
     },
   });
 
+  // Claim call
+  const { config } = usePrepareContractWrite({
+    address: activeEscrowAddress,
+    abi: Escrow__factory.abi,
+    functionName: 'claimWinnings',
+  });
+  const {
+    data,
+    write: claim,
+    isLoading: isWriteLoading,
+  } = useContractWrite(config);
+  const { isLoading: isWaitLoading } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
   const getScreen = useCallback(() => {
     console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
     console.log('[getscreen] player1HasDeposited', player1HasDeposited);
@@ -182,8 +200,18 @@ export function App() {
     } else if (player1HasDeposited && player2HasDeposited && gameStarted) {
       return <p>Game in progress...</p>;
     } else if (gameStarted && gameEnded) {
-      // TODO: game end screen
-      return <p>game over! winner: ${winner}</p>;
+      // TODO: refactor this out into a game end screen
+      return (
+        <div>
+          <p>game over! winner: ${winner}</p>
+          <button
+            disabled={!claim || !(winner === address)}
+            onClick={() => claim?.()}
+          >
+            Claim
+          </button>
+        </div>
+      );
     }
   }, [
     activeEscrowAddress,

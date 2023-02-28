@@ -1,0 +1,24 @@
+import Room from 'ipfs-pubsub-room';
+import Libp2p from 'libp2p';
+import {useEffect} from 'react';
+
+const IpfsRoom = () => {
+  useEffect(() => {
+    const ipfsOptions = {
+      EXPERIMENTAL: {
+        pubsub: true
+      },
+      config: {
+        Addresses: {
+          Swarm: [
+            "/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star"
+          ]
+        }
+      }
+    };
+
+    new IPFS(ipfsOptions);
+    const room = Room(libp2p, 'room-name')
+    Room(this.ipfs, 'transmute-pubsub-demo');
+  }, [])
+}

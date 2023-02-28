@@ -1,12 +1,7 @@
 import { style, globalStyle } from '@vanilla-extract/css';
 import { violetDark, violetDarkA } from '@radix-ui/colors';
 
-globalStyle('p', {
-  margin: 0,
-  padding: 0,
-  border: 0,
-});
-
+// Reset
 globalStyle('html', {
   height: '100%',
   margin: 0,
@@ -19,11 +14,10 @@ globalStyle('body', {
   margin: 0,
 });
 
-globalStyle('p', {
-  backgroundColor: violetDark.violet1,
-  color: 'white',
-  height: '100%',
+globalStyle('p, h1, h2, h3, h4, h5, h6', {
   margin: 0,
+  padding: 0,
+  border: 0,
 });
 
 globalStyle('#root', {
@@ -76,16 +70,15 @@ export const Section = style({
 
 export const Players = style({
   display: 'flex',
-  width: '80%',
+  width: '60%',
   height: '100%',
-  alignItems: 'center',
   alignSelf: 'center',
   justifyContent: 'space-around',
 });
 
 export const PlayerBox = style({
+  marginTop: '2rem',
   width: '30%',
-  backgroundColor: violetDark.violet3,
 });
 
 export const PlayerSeparatorContainer = style({

@@ -92,3 +92,10 @@ export const PlayerSeparator = style({
   width: '2px',
   backgroundColor: violetDarkA.violetA5,
 });
+
+export const LoadingContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '80vh',
+});

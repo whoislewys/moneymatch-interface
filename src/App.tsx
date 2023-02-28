@@ -1,7 +1,7 @@
 import * as Separator from '@radix-ui/react-separator';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ethers } from 'ethers';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import {
   Address,
@@ -15,7 +15,14 @@ import {
 } from 'wagmi';
 import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
 import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';
-import { Header, HeaderSeparator, LeftNav, Main, Nav } from './App.css';
+import {
+  Header,
+  HeaderSeparator,
+  LeftNav,
+  LoadingContainer,
+  Main,
+  Nav,
+} from './App.css';
 import { CreateBet } from './CreateBet';
 import { Deposit } from './Deposit';
 
@@ -102,7 +109,7 @@ export function App() {
     abi: Escrow__factory.abi,
     eventName: 'Deposited',
     listener: (depositorAddress) => {
-      console.log('Deposited');
+      console.log(depositorAddress, 'Deposited');
       if (depositorAddress === p1Address) {
         setPlayer1HasDeposited(true);
         toast.success('Player 1 deposited');
@@ -133,13 +140,14 @@ export function App() {
     abi: Escrow__factory.abi,
     eventName: 'GameEnded',
     listener: (winner) => {
-      console.log('GameEnded');
+      console.log('[GameEnded] winner: ', winner);
       setWinner(winner);
       setGameEnded(true);
     },
   });
 
   // Claim call
+  const [claimed, setClaimed] = useState(false);
   const { config } = usePrepareContractWrite({
     address: activeEscrowAddress,
     abi: Escrow__factory.abi,
@@ -152,13 +160,16 @@ export function App() {
   } = useContractWrite(config);
   const { isLoading: isWaitLoading } = useWaitForTransaction({
     hash: data?.hash,
+    onSuccess: () => {
+      setClaimed(true);
+    },
   });
 
-  const getScreen = useCallback(() => {
-    console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
-    console.log('[getscreen] player1HasDeposited', player1HasDeposited);
-    console.log('[getscreen] player2HasDeposited', player2HasDeposited);
-    console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
+  const getScreen = () => {
+    // console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
+    // console.log('[getscreen] player1HasDeposited', player1HasDeposited);
+    // console.log('[getscreen] player2HasDeposited', player2HasDeposited);
+    // console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
     if (activeEscrowAddress === ethers.constants.AddressZero) {
       // MVP Create Bet Screen. bet amount values hardcoded, p1 fills out his bet copies link, sends it to p2
       return (
@@ -177,8 +188,7 @@ export function App() {
       // return <CreateBetMultiTenant />
     } else if (
       activeEscrowAddress !== ethers.constants.AddressZero &&
-      !player1HasDeposited &&
-      !player2HasDeposited
+      (!player1HasDeposited || !player2HasDeposited)
     ) {
       // TODO: should i do a time-related check in addition to activeEscrowAddress to account for players playing multiple games?
       //  could do a check on gameOver on the Escrow contract
@@ -196,30 +206,42 @@ export function App() {
         />
       );
     } else if (player1HasDeposited && player2HasDeposited && !gameStarted) {
-      return <p>Waiting for game...</p>;
-    } else if (player1HasDeposited && player2HasDeposited && gameStarted) {
-      return <p>Game in progress...</p>;
+      return (
+        <div className={LoadingContainer}>
+          <p>WAITING FOR GAME...</p>
+        </div>
+      );
+    } else if (
+      player1HasDeposited &&
+      player2HasDeposited &&
+      gameStarted &&
+      !gameEnded
+    ) {
+      return (
+        <div className={LoadingContainer}>
+          <p>GAME IN PROGRESS...</p>
+        </div>
+      );
     } else if (gameStarted && gameEnded) {
       // TODO: refactor this out into a game end screen
       return (
         <div>
-          <p>game over! winner: ${winner}</p>
-          <button
-            disabled={!claim || !(winner === address)}
-            onClick={() => claim?.()}
-          >
-            Claim
-          </button>
+          <p>GAME!</p>
+          <p>Winner: {winner}</p>
+          {winner === address ? (
+            <button
+              disabled={!(winner === address) || claimed}
+              onClick={() => claim?.()}
+            >
+              Claim
+            </button>
+          ) : (
+            <p>You Lost :(</p>
+          )}
         </div>
       );
     }
-  }, [
-    activeEscrowAddress,
-    player1HasDeposited,
-    player2HasDeposited,
-    gameStarted,
-    gameEnded,
-  ]);
+  };
 
   return (
     <main className={Main}>

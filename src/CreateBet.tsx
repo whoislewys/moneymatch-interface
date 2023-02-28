@@ -35,7 +35,10 @@ export const CreateBet = ({
   p2Address: Address;
   betAmountStr: string;
 }) => {
-  const ARBITER_ADDRESS = '0x58438bdd4579f412279dc5bc4763dfe740a7a91f';
+  // dev
+  const ARBITER_ADDRESS = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+  // prod
+  // const ARBITER_ADDRESS = '0x58438bdd4579f412279dc5bc4763dfe740a7a91f';
 
   const { config } = usePrepareContractWrite({
     address: import.meta.env.VITE_ESCROW_FACTORY_ADDRESS,
@@ -55,7 +58,7 @@ export const CreateBet = ({
   const { isLoading: isWaitLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
-      toast.success('Bet created!');
+      // toast.success('Bet created!');
     },
   });
   const isLoading = useMemo(() => {
@@ -111,7 +114,9 @@ export const CreateBet = ({
             <input
               value={p1ConnectCode}
               disabled={!isP1Active}
-              onChange={(e) => setP1ConnectCode(e.target.value)}
+              onChange={(e) => {
+                setP1ConnectCode(e.target.value);
+              }}
             />
 
             <label style={{ marginTop: '1rem' }}>Wallet Address</label>
@@ -193,63 +198,32 @@ export const CreateBet = ({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          width: '30%',
           alignSelf: 'center',
           marginTop: '4rem',
+          width: '12rem',
         }}
       >
-        <div>
-          <p style={{ marginTop: '0.5rem' }}>[DEV] Contract Args: </p>
-          <p style={{ marginTop: '0.5rem' }}>
-            Arbiter Address: {ARBITER_ADDRESS}
-          </p>
-          <p style={{ marginTop: '0.5rem' }}>
-            P1 Connect Code: {p1ConnectCode}
-          </p>
-          <p style={{ marginTop: '0.5rem' }}>P1 Address: {p1Address}</p>
-          <p style={{ marginTop: '0.5rem' }}>
-            Bet Amount Str: {ethers.utils.parseEther(betAmountStr).toString()}
-          </p>
-          <p style={{ marginTop: '0.5rem' }}>
-            P2 Connect Code: {p2ConnectCode}
-          </p>
-          <p style={{ marginTop: '0.5rem' }}>P2 Address: {p2Address}</p>
-          <p style={{ marginTop: '0.5rem' }}>
-            Bet Amount Str: {ethers.utils.parseEther(betAmountStr).toString()}
-          </p>
-        </div>
-
-        <div
+        <button
+          disabled={
+            !write ||
+            isLoading ||
+            p1Address === ethers.constants.AddressZero ||
+            p1ConnectCode === '' ||
+            p2Address === ethers.constants.AddressZero ||
+            p2ConnectCode === ''
+          }
+          onClick={() => {
+            write?.();
+          }}
           style={{
+            height: '1.75rem',
             display: 'flex',
+            alignItems: 'center',
             justifyContent: 'center',
-            marginTop: '4rem',
           }}
         >
-          <button
-            disabled={
-              !write ||
-              isLoading ||
-              p1Address === ethers.constants.AddressZero ||
-              p1ConnectCode === '' ||
-              p2Address === ethers.constants.AddressZero ||
-              p2ConnectCode === ''
-            }
-            onClick={() => {
-              write?.();
-            }}
-            style={{
-              width: '12rem',
-              height: '1.75rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {isLoading ? <LoadingRipple /> : 'Create Bet'}
-          </button>
-        </div>
-        <div style={{ marginBottom: '4rem' }} />
+          {isLoading ? <LoadingRipple /> : 'Create Bet'}
+        </button>
       </div>
     </>
   );

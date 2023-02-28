@@ -10,6 +10,7 @@ import {
 } from 'wagmi';
 import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';
 import { PlayerBox, Players, PlayerSeparatorContainer } from './App.css';
+import { LoadingRipple } from './Ripple200';
 
 export const Deposit = ({
   escrowAddress,
@@ -51,6 +52,15 @@ export const Deposit = ({
     return isWriteLoading || isWaitLoading;
   }, [isWriteLoading, isWaitLoading]);
 
+  const getButtonContents = (playerHasDeposited: boolean) => {
+    if (playerHasDeposited) {
+      return 'Deposited';
+    } else if (isLoading) {
+      return <LoadingRipple />;
+    } else {
+      return 'Deposit';
+    }
+  };
   return (
     <>
       <div
@@ -96,13 +106,12 @@ export const Deposit = ({
               alignSelf: 'center',
               height: '1.75rem',
             }}
-            disabled={!write || !isP1Active || player1HasDeposited}
-
+            disabled={!write || !isP1Active || player1HasDeposited || isLoading}
             onClick={() => {
               write?.();
             }}
           >
-            {player1HasDeposited ? 'Deposited' : 'Deposit'}
+            {getButtonContents(player1HasDeposited)}
           </button>
         </div>
 
@@ -145,12 +154,12 @@ export const Deposit = ({
               alignSelf: 'center',
               height: '1.75rem',
             }}
-            disabled={!write || isP1Active || player2HasDeposited}
+            disabled={!write || isP1Active || player2HasDeposited || isLoading}
             onClick={() => {
               write?.();
             }}
           >
-            {player2HasDeposited ? 'Deposited' : 'Deposit'}
+            {getButtonContents(player2HasDeposited)}
           </button>
         </div>
       </div>

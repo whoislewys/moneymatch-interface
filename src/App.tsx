@@ -58,7 +58,7 @@ export function App() {
     ethers.constants.AddressZero
   );
   // BOTH PLAYERS
-  const [betAmountStr] = useState('0.1');
+  const [betAmountStr] = useState('0.345');
 
   // set address and connect code depending on active player
   useEffect(() => {
@@ -80,7 +80,7 @@ export function App() {
       player2Address,
       escrowAddress
     ) => {
-      console.log('EscrowCreated');
+      console.log('[EscrowCreated] address: ', escrowAddress);
       // Wagmi is infurating for contract events, can't get multiple events or use query filters on the useContract result apparently (had to make my own ethers contract)
       toast.success('Escrow created!');
 
@@ -152,6 +152,7 @@ export function App() {
     address: activeEscrowAddress,
     abi: Escrow__factory.abi,
     functionName: 'claimWinnings',
+    enabled: winner !== ethers.constants.AddressZero && !claimed,
   });
   const {
     data,
@@ -161,11 +162,13 @@ export function App() {
   const { isLoading: isWaitLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
+      toast.success(`Claimed Ξ ${Number(betAmountStr) * 2}!`);
       setClaimed(true);
     },
   });
 
   const getScreen = () => {
+<<<<<<< HEAD
     // console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
     // console.log('[getscreen] player1HasDeposited', player1HasDeposited);
     // console.log('[getscreen] player2HasDeposited', player2HasDeposited);
@@ -173,6 +176,9 @@ export function App() {
     if (
       activeEscrowAddress === ethers.constants.AddressZero
       ) {
+=======
+    if (activeEscrowAddress === ethers.constants.AddressZero) {
+>>>>>>> 40afe00 (clean it up a bit + new conch types)
       // MVP Create Bet Screen. bet amount values hardcoded, p1 fills out his bet copies link, sends it to p2
       return (
         <CreateBet
@@ -230,19 +236,35 @@ export function App() {
       gameStarted && gameEnded) {
       // TODO: refactor this out into a game end screen
       return (
-        <div>
-          <p>GAME!</p>
-          <p>Winner: {winner}</p>
+        <div className={LoadingContainer}>
+          <h3>GAME!</h3>
           {winner === address ? (
             <button
-              disabled={!(winner === address) || claimed}
+              disabled={!claim || !(winner === address) || claimed}
               onClick={() => claim?.()}
+              style={{
+                marginTop: '1rem',
+                width: '12rem',
+                alignSelf: 'center',
+                height: '1.75rem',
+              }}
             >
               Claim
             </button>
           ) : (
-            <p>You Lost :(</p>
+            <p style={{ marginTop: '0.75rem' }}>You Lost :(</p>
           )}
+          <button
+            style={{
+              marginTop: '1rem',
+              width: '12rem',
+              alignSelf: 'center',
+              height: '1.75rem',
+            }}
+            onClick={() => window.location.reload()}
+          >
+            Play Again?
+          </button>
         </div>
       );
     }

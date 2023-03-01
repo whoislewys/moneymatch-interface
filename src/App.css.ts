@@ -111,5 +111,6 @@ export const LoadingContainer = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  flexDirection: 'column',
   height: '80vh',
 });

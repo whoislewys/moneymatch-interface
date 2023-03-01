@@ -1,8 +1,12 @@
 import { ethers } from 'ethers';
 import { useMemo } from 'react';
 import { toast } from 'react-hot-toast';
+<<<<<<< HEAD
 import TextInput from './TextInput';
 import type { Address } from 'wagmi';
+=======
+import { Address, useAccount } from 'wagmi';
+>>>>>>> 40afe00 (clean it up a bit + new conch types)
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -42,6 +46,8 @@ export const CreateBet = ({
   // prod
   // const ARBITER_ADDRESS = '0x58438bdd4579f412279dc5bc4763dfe740a7a91f';
 
+  const { address } = useAccount();
+
   const { config } = usePrepareContractWrite({
     address: import.meta.env.VITE_ESCROW_FACTORY_ADDRESS,
     abi: EscrowFactory__factory.abi,
@@ -55,12 +61,20 @@ export const CreateBet = ({
       p2Address,
       ethers.utils.parseEther(betAmountStr),
     ],
+    enabled:
+      !(p1Address === ethers.constants.AddressZero ||
+      p1ConnectCode === '' ||
+      p2Address === ethers.constants.AddressZero ||
+      p2ConnectCode === '')
   });
   const { data, write, isLoading: isWriteLoading } = useContractWrite(config);
   const { isLoading: isWaitLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
-      // toast.success('Bet created!');
+      console.log('Bet created');
+      console.log('player1Id: ', p1ConnectCode);
+      console.log('player2Id: ', p2ConnectCode);
+      toast.success('Bet created!');
     },
   });
   const isLoading = useMemo(() => {
@@ -129,6 +143,7 @@ export const CreateBet = ({
               disabled value={p1Address} 
             />
 
+<<<<<<< HEAD
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
             <TextInput
              onChange={(e) => {
@@ -136,6 +151,10 @@ export const CreateBet = ({
             }}
               value={'Ξ 0.1'} disabled 
             />
+=======
+            <label style={{ marginTop: '1rem' }}>Bet Amount</label>
+            <input value={`Ξ ${betAmountStr}`} disabled />
+>>>>>>> 40afe00 (clean it up a bit + new conch types)
           </div>
         </div>
 
@@ -174,11 +193,16 @@ export const CreateBet = ({
               disabled value={p2Address} 
             />
 
+<<<<<<< HEAD
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
             <TextInput 
               onChange={(e) => setP2ConnectCode(e.target.value)}
               value={'Ξ 0.1'} disabled 
             />
+=======
+            <label style={{ marginTop: '1rem' }}>Bet Amount</label>
+            <input value={`Ξ ${betAmountStr}`} disabled />
+>>>>>>> 40afe00 (clean it up a bit + new conch types)
           </div>
         </div>
       </div>
@@ -187,7 +211,11 @@ export const CreateBet = ({
         // Copy link button is only needed when p1 is active
         isP1Active ? (
           <button
+<<<<<<< HEAD
             className={MoneyMatchButton}
+=======
+            disabled={!address}
+>>>>>>> 40afe00 (clean it up a bit + new conch types)
             style={{
               marginTop: '4rem',
             }}

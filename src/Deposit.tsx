@@ -96,7 +96,7 @@ export const Deposit = ({
             <input disabled value={p1Address} />
 
             <label style={{ marginTop: '1rem' }}>Bet Amount</label>
-            <input disabled value={'Ξ 0.1'} />
+            <input disabled value={`Ξ ${betAmountStr}`} />
           </div>
           {/*TODO: add loading state to button */}
           <button
@@ -144,7 +144,7 @@ export const Deposit = ({
             <input disabled value={p2Address} />
 
             <label style={{ marginTop: '1rem' }}>Bet Amount</label>
-            <input disabled value={'Ξ 0.1'} />
+            <input disabled value={`Ξ ${betAmountStr}`} />
           </div>
           {/*TODO: add loading state to button */}
           <button

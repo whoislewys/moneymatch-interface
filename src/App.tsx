@@ -59,7 +59,7 @@ export function App() {
     ethers.constants.AddressZero
   );
   // BOTH PLAYERS
-  const [betAmountStr] = useState('0.345');
+  const [betAmountStr] = useState('0.0345');
 
   // set address and connect code depending on active player
   useEffect(() => {

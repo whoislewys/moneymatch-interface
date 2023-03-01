@@ -41,10 +41,12 @@ export const CreateBet = ({
   p2Address: Address;
   betAmountStr: string;
 }) => {
-  // dev
-  const ARBITER_ADDRESS = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
-  // prod
-  // const ARBITER_ADDRESS = '0x58438bdd4579f412279dc5bc4763dfe740a7a91f';
+  // if dev (hh 0 address)
+  // prod (tarc dev wallet)
+  const ARBITER_ADDRESS =
+    import.meta.env?.MODE === 'development'
+      ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
+      : '0x7643c4F21661691fb851AfedaF627695672C9fac';
 
   const { address } = useAccount();
 
@@ -61,11 +63,12 @@ export const CreateBet = ({
       p2Address,
       ethers.utils.parseEther(betAmountStr),
     ],
-    enabled:
-      !(p1Address === ethers.constants.AddressZero ||
+    enabled: !(
+      p1Address === ethers.constants.AddressZero ||
       p1ConnectCode === '' ||
       p2Address === ethers.constants.AddressZero ||
-      p2ConnectCode === '')
+      p2ConnectCode === ''
+    ),
   });
   const { data, write, isLoading: isWriteLoading } = useContractWrite(config);
   const { isLoading: isWaitLoading } = useWaitForTransaction({

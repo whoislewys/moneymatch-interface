@@ -26,10 +26,24 @@ globalStyle('#root', {
   margin: 0,
 });
 
+
 // override rainbow kit provider's style
 globalStyle('div[data-rk]', {
   // height: '100%',
   display: 'block',
+});
+
+export const MoneyMatchButton = style({
+  height: '2.5rem',
+  width: '12rem',
+  fontSize: '1rem',
+  fontWeight: 'bold',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  alignSelf: 'center',
+  borderRadius: '1rem',
+  border: 'none',
 });
 
 export const Main = style({

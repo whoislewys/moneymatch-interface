@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import { useMemo } from 'react';
 import { toast } from 'react-hot-toast';
+import TextInput from './TextInput';
 import type { Address } from 'wagmi';
 import {
   useContractWrite,
@@ -9,6 +10,7 @@ import {
 } from 'wagmi';
 import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
 import {
+  MoneyMatchButton,
   PlayerBox,
   Players,
   PlayerSeparatorContainer,
@@ -86,8 +88,8 @@ export const CreateBet = ({
           alignSelf: 'center',
         }}
       >
-        <p>Betting with MoneyMatch is easy! Just:</p>
-        <ol>
+        <p style={{ fontSize: '2rem', textAlign: 'center' }}>$$ MoneyMatch Instructions $$</p>
+        <ol style={{ fontSize: '1.2rem' }}>
           <li>Connect your wallet (at the top right).</li>
           <li>Fill out your connect code.</li>
           <li>
@@ -98,7 +100,7 @@ export const CreateBet = ({
 
       <div className={Players}>
         <div className={PlayerBox}>
-          <h3>Your Details</h3>
+          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>Your Details</h3>
 
           <div
             style={{
@@ -110,8 +112,8 @@ export const CreateBet = ({
               width: '12rem',
             }}
           >
-            <label>Connect Code</label>
-            <input
+            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
+            <TextInput
               value={p1ConnectCode}
               disabled={!isP1Active}
               onChange={(e) => {
@@ -119,11 +121,21 @@ export const CreateBet = ({
               }}
             />
 
-            <label style={{ marginTop: '1rem' }}>Wallet Address</label>
-            <input disabled value={p1Address} />
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Wallet Address</label>
+            <TextInput 
+              onChange={(e) => {
+                setP1ConnectCode(e.target.value);
+              }}
+              disabled value={p1Address} 
+            />
 
-            <label style={{ marginTop: '1rem' }}>Bet Amount</label>
-            <input value={'Ξ 0.1'} disabled />
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
+            <TextInput
+             onChange={(e) => {
+              setP1ConnectCode(e.target.value);
+            }}
+              value={'Ξ 0.1'} disabled 
+            />
           </div>
         </div>
 
@@ -138,7 +150,7 @@ export const CreateBet = ({
         </div>
 
         <div className={PlayerBox}>
-          <h3>Opponent's Details</h3>
+          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>Opponent's Details</h3>
           <div
             style={{
               display: 'flex',
@@ -149,18 +161,24 @@ export const CreateBet = ({
               width: '12rem',
             }}
           >
-            <label>Connect Code</label>
-            <input
+            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
+            <TextInput
               value={p2ConnectCode}
               disabled={isP1Active}
               onChange={(e) => setP2ConnectCode(e.target.value)}
             />
 
-            <label style={{ marginTop: '1rem' }}>Wallet Address</label>
-            <input disabled value={p2Address} />
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Wallet Address</label>
+            <TextInput
+              onChange={(e) => setP2ConnectCode(e.target.value)}
+              disabled value={p2Address} 
+            />
 
-            <label style={{ marginTop: '1rem' }}>Bet Amount</label>
-            <input value={'Ξ 0.1'} disabled />
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
+            <TextInput 
+              onChange={(e) => setP2ConnectCode(e.target.value)}
+              value={'Ξ 0.1'} disabled 
+            />
           </div>
         </div>
       </div>
@@ -169,11 +187,9 @@ export const CreateBet = ({
         // Copy link button is only needed when p1 is active
         isP1Active ? (
           <button
+            className={MoneyMatchButton}
             style={{
               marginTop: '4rem',
-              width: '12rem',
-              alignSelf: 'center',
-              height: '1.75rem',
             }}
             onClick={() => {
               const url = new URL(window.location.origin);
@@ -204,6 +220,7 @@ export const CreateBet = ({
         }}
       >
         <button
+          className={MoneyMatchButton}
           disabled={
             !write ||
             isLoading ||
@@ -214,12 +231,6 @@ export const CreateBet = ({
           }
           onClick={() => {
             write?.();
-          }}
-          style={{
-            height: '1.75rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
           {isLoading ? <LoadingRipple /> : 'Create Bet'}

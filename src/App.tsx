@@ -170,7 +170,9 @@ export function App() {
     // console.log('[getscreen] player1HasDeposited', player1HasDeposited);
     // console.log('[getscreen] player2HasDeposited', player2HasDeposited);
     // console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
-    if (activeEscrowAddress === ethers.constants.AddressZero) {
+    if (
+      activeEscrowAddress === ethers.constants.AddressZero
+      ) {
       // MVP Create Bet Screen. bet amount values hardcoded, p1 fills out his bet copies link, sends it to p2
       return (
         <CreateBet
@@ -205,7 +207,9 @@ export function App() {
           betAmountStr={betAmountStr}
         />
       );
-    } else if (player1HasDeposited && player2HasDeposited && !gameStarted) {
+    } else if (
+      player1HasDeposited && player2HasDeposited && !gameStarted
+      ) {
       return (
         <div className={LoadingContainer}>
           <p>WAITING FOR GAME...</p>
@@ -222,7 +226,8 @@ export function App() {
           <p>GAME IN PROGRESS...</p>
         </div>
       );
-    } else if (gameStarted && gameEnded) {
+    } else if (
+      gameStarted && gameEnded) {
       // TODO: refactor this out into a game end screen
       return (
         <div>

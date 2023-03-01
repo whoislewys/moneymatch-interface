@@ -14,6 +14,7 @@ const { chains, provider, webSocketProvider } = configureChains(
   [
     alchemyProvider({ apiKey: import.meta.env?.VITE_ALCHEMY_API_KEY }),
     publicProvider(),
+//
   ]
 );
 

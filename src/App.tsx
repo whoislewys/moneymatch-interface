@@ -171,6 +171,7 @@ export function App() {
   const getScreen = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
     // console.log('[getscreen] player1HasDeposited', player1HasDeposited);
     // console.log('[getscreen] player2HasDeposited', player2HasDeposited);
@@ -183,6 +184,9 @@ export function App() {
 >>>>>>> 40afe00 (clean it up a bit + new conch types)
 =======
     if ( false
+=======
+    if ( true
+>>>>>>> c0a6d30 (font added)
       // activeEscrowAddress === ethers.constants.AddressZero
       ) {
 >>>>>>> 9797467 (loading ripple)
@@ -233,7 +237,7 @@ export function App() {
           <p style={{ marginTop: '1rem', fontSize: '1.5rem'}}>WAITING FOR GAME</p>
         </div>
       );
-    } else if ( true
+    } else if ( false
       // player1HasDeposited &&
       // player2HasDeposited &&
       // gameStarted &&
@@ -279,7 +283,9 @@ export function App() {
               alignSelf: 'center',
               height: '1.75rem',
             }}
-            onClick={() => window.location.reload()}
+            // disable play again until winner has claimed
+            disabled={winner === address && !claimed}
+            onClick={() => location.href = window.location.origin}
           >
             Play Again?
           </button>

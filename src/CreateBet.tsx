@@ -105,7 +105,7 @@ export const CreateBet = ({
           alignSelf: 'center',
         }}
       >
-        <p style={{ fontSize: '2rem', textAlign: 'center' }}>$$ MoneyMatch Instructions $$</p>
+        <p style={{ fontSize: '1.9rem', textAlign: 'center' }}>$$ MoneyMatch Instructions $$</p>
         <ol style={{ fontSize: '1.2rem' }}>
           <li>Connect your wallet (at the top right).</li>
           <li>Fill out your connect code.</li>
@@ -117,7 +117,11 @@ export const CreateBet = ({
 
       <div className={Players}>
         <div className={PlayerBox}>
+<<<<<<< HEAD
           <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>Your Details</h3>
+=======
+          <h3>{isP1Active ? 'Your Details' : "Opponent's Details"}</h3>
+>>>>>>> a3e162f (disable play again until winner has claimed + dynamic your details vs their details text)
 
           <div
             style={{
@@ -172,7 +176,11 @@ export const CreateBet = ({
         </div>
 
         <div className={PlayerBox}>
+<<<<<<< HEAD
           <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>Opponent's Details</h3>
+=======
+          <h3>{isP1Active ? "Opponent's Details" : 'Your Details'}</h3>
+>>>>>>> a3e162f (disable play again until winner has claimed + dynamic your details vs their details text)
           <div
             style={{
               display: 'flex',

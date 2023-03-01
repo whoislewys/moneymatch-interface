@@ -1,17 +1,45 @@
-import React from "react";
+interface LoadingRippleProps {
+  size?: string
+  colorVariant?: 'green'
+  margin?: 'none'
+}
+export const LoadingRipple = (props: LoadingRippleProps) => {
 
-export const LoadingRipple = () => {
+    let size;
+    if (props.size === undefined) {
+      size = '24px';
+    } else {
+      size = props.size;
+    }
+
+    let color1;
+    let color2;
+    if (props.colorVariant === undefined) {
+      color1 = '#0a0a0a';
+      color2 = '#28292f';
+    } else if (props.colorVariant === 'green') {
+      color1 = '#56bb47';
+      color2 = 'lightGreen';
+    }
+
+    let margin;
+    if (props.margin === undefined) {
+      margin = 'auto';
+    } else {
+      margin = props.margin;
+    }
+
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
       style={{
-        margin: 'auto',
+        margin: margin,
         background: 'transparent',
         display: 'block',
         shapeRendering: 'auto',
       }}
-      width='24px'
-      height='24px'
+      width={size}
+      height={size}
       viewBox='0 0 100 100'
       preserveAspectRatio='xMidYMid'
     >
@@ -20,7 +48,7 @@ export const LoadingRipple = () => {
         cy='50'
         r='0'
         fill='none'
-        stroke='#0a0a0a'
+        stroke={color1}
         strokeWidth='2'
       >
         <animate
@@ -49,7 +77,7 @@ export const LoadingRipple = () => {
         cy='50'
         r='0'
         fill='none'
-        stroke='#28292f'
+        stroke={color2}
         strokeWidth='2'
       >
         <animate

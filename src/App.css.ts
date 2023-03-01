@@ -1,4 +1,4 @@
-import { style, globalStyle } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 import { violetDark, violetDarkA } from '@radix-ui/colors';
 
 // Reset
@@ -31,19 +31,6 @@ globalStyle('#root', {
 globalStyle('div[data-rk]', {
   // height: '100%',
   display: 'block',
-});
-
-export const MoneyMatchButton = style({
-  height: '2.5rem',
-  width: '12rem',
-  fontSize: '1rem',
-  fontWeight: 'bold',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  alignSelf: 'center',
-  borderRadius: '1rem',
-  border: 'none',
 });
 
 export const Main = style({
@@ -114,3 +101,17 @@ export const LoadingContainer = style({
   flexDirection: 'column',
   height: '80vh',
 });
+
+export const MoneyMatchButton = style({
+  height: '2.5rem',
+  width: '12rem',
+  fontSize: '1rem',
+  fontWeight: 'bold',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  alignSelf: 'center',
+  borderRadius: '1rem',
+  border: 'none',
+});
+

@@ -25,6 +25,7 @@ import {
 } from './App.css';
 import { CreateBet } from './CreateBet';
 import { Deposit } from './Deposit';
+import { LoadingRipple } from './Ripple200';
 
 export function App() {
   // wagmi hooks
@@ -169,6 +170,7 @@ export function App() {
 
   const getScreen = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     // console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
     // console.log('[getscreen] player1HasDeposited', player1HasDeposited);
     // console.log('[getscreen] player2HasDeposited', player2HasDeposited);
@@ -179,6 +181,11 @@ export function App() {
 =======
     if (activeEscrowAddress === ethers.constants.AddressZero) {
 >>>>>>> 40afe00 (clean it up a bit + new conch types)
+=======
+    if ( false
+      // activeEscrowAddress === ethers.constants.AddressZero
+      ) {
+>>>>>>> 9797467 (loading ripple)
       // MVP Create Bet Screen. bet amount values hardcoded, p1 fills out his bet copies link, sends it to p2
       return (
         <CreateBet
@@ -194,9 +201,9 @@ export function App() {
       );
       // More advanced Create Bet Screen. for letting two players connect p2p and update bet values in real time
       // return <CreateBetMultiTenant />
-    } else if (
-      activeEscrowAddress !== ethers.constants.AddressZero &&
-      (!player1HasDeposited || !player2HasDeposited)
+    } else if ( false
+      // activeEscrowAddress !== ethers.constants.AddressZero &&
+      // (!player1HasDeposited || !player2HasDeposited)
     ) {
       // TODO: should i do a time-related check in addition to activeEscrowAddress to account for players playing multiple games?
       //  could do a check on gameOver on the Escrow contract
@@ -213,27 +220,38 @@ export function App() {
           betAmountStr={betAmountStr}
         />
       );
-    } else if (
-      player1HasDeposited && player2HasDeposited && !gameStarted
+    } else if ( false
+      // player1HasDeposited && player2HasDeposited && !gameStarted
       ) {
       return (
         <div className={LoadingContainer}>
-          <p>WAITING FOR GAME...</p>
+          <LoadingRipple
+            size={'7rem'}
+            colorVariant={'green'}
+            margin={'none'}
+          />
+          <p style={{ marginTop: '1rem', fontSize: '1.5rem'}}>WAITING FOR GAME</p>
         </div>
       );
-    } else if (
-      player1HasDeposited &&
-      player2HasDeposited &&
-      gameStarted &&
-      !gameEnded
+    } else if ( true
+      // player1HasDeposited &&
+      // player2HasDeposited &&
+      // gameStarted &&
+      // !gameEnded
     ) {
       return (
         <div className={LoadingContainer}>
-          <p>GAME IN PROGRESS...</p>
+           <LoadingRipple
+            size={'7rem'}
+            colorVariant={'green'}
+            margin={'none'}
+          />
+          <p style={{ marginTop: '1rem', fontSize: '1.5rem'}}>GAME IN PROGRESS...</p>
         </div>
       );
-    } else if (
-      gameStarted && gameEnded) {
+    } else if ( false )
+      // gameStarted && gameEnded) 
+      {
       // TODO: refactor this out into a game end screen
       return (
         <div className={LoadingContainer}>

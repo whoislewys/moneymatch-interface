@@ -53,9 +53,13 @@ export const Deposit = ({
   }, [isWriteLoading, isWaitLoading]);
 
   const getButtonContents = (playerHasDeposited: boolean) => {
-    if (playerHasDeposited) {
+    if ( false
+      // playerHasDeposited
+      ) {
       return 'Deposited';
-    } else if (isLoading) {
+    } else if ( true
+      // isLoading
+      ) {
       return <LoadingRipple />;
     } else {
       return 'Deposit';

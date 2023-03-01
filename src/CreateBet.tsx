@@ -130,14 +130,14 @@ export const CreateBet = ({
             <TextInput
               value={p1ConnectCode}
               disabled={!isP1Active}
-              onChange={(e) => {
+              onChange={(e: any) => {
                 setP1ConnectCode(e.target.value);
               }}
             />
 
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Wallet Address</label>
             <TextInput 
-              onChange={(e) => {
+              onChange={(e: any) => {
                 setP1ConnectCode(e.target.value);
               }}
               disabled value={p1Address} 
@@ -146,7 +146,7 @@ export const CreateBet = ({
 <<<<<<< HEAD
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
             <TextInput
-             onChange={(e) => {
+             onChange={(e: any) => {
               setP1ConnectCode(e.target.value);
             }}
               value={'Ξ 0.1'} disabled 
@@ -184,20 +184,25 @@ export const CreateBet = ({
             <TextInput
               value={p2ConnectCode}
               disabled={isP1Active}
-              onChange={(e) => setP2ConnectCode(e.target.value)}
+              onChange={(e: any) => setP2ConnectCode(e.target.value)}
             />
 
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Wallet Address</label>
             <TextInput
-              onChange={(e) => setP2ConnectCode(e.target.value)}
+              onChange={(e: any) => setP2ConnectCode(e.target.value)}
               disabled value={p2Address} 
             />
 
 <<<<<<< HEAD
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
             <TextInput 
+<<<<<<< HEAD
               onChange={(e) => setP2ConnectCode(e.target.value)}
               value={'Ξ 0.1'} disabled 
+=======
+              onChange={(e: any) => setP2ConnectCode(e.target.value)}
+              value={`Ξ ${betAmountStr}`} disabled 
+>>>>>>> 23f0964 (fixed errors)
             />
 =======
             <label style={{ marginTop: '1rem' }}>Bet Amount</label>

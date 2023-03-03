@@ -10,7 +10,7 @@ import {
 } from 'wagmi';
 import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';
 import { PlayerBox, Players, PlayerSeparatorContainer } from './App.css';
-import { LoadingRipple } from './Ripple200';
+import { LoadingRipple } from './LoadingRipple';
 
 export const Deposit = ({
   escrowAddress,

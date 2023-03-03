@@ -81,7 +81,7 @@ export const Section = style({
 
 export const Players = style({
   display: 'flex',
-  width: 'calc(60% + 2rem)',
+  width: '38rem',
   height: '100%',
   alignSelf: 'center',
   justifyContent: 'space-between',
@@ -107,8 +107,8 @@ export const LoadingContainer = style({
 });
 
 export const PlayerBox = style({
-  width: '30%',
-  padding: '2rem',
+  width: '15rem',
+  padding: '1.5rem',
   borderRadius: '1rem',
   background: mauveDark.mauve3,
 });
@@ -154,4 +154,5 @@ export const InstructionsCard = style({
   background: mauveDark.mauve3,
   borderRadius: '1rem',
   padding: '1rem',
+  marginTop: '2rem',
 })

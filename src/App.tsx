@@ -23,13 +23,12 @@ import {
   LoadingContainer,
   Main,
   Nav,
+  MoneyMatchButton
 } from "./App.css";
 import { CreateBet } from "./CreateBet";
 import { Deposit } from "./Deposit";
-import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
-import { Web3Auth } from "@web3auth/modal";
-import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { LoadingRipple } from "./Ripple200";
+import { Button } from "./components/Button";
 
 export function App() {
   // wagmi hooks
@@ -276,6 +275,7 @@ export function App() {
     const { address, connector, isConnected } = useAccount();
     const { connect, connectors, error, isLoading, pendingConnector } =
       useConnect();
+    const web3authConnector = connectors[0];
     const { disconnect } = useDisconnect();
 
     if (isConnected) {
@@ -283,7 +283,10 @@ export function App() {
         <div className="main">
           <div className="title">Connected to {connector?.name}</div>
           <div>{address}</div>
-          <button className="card" onClick={disconnect as any}>
+          <button 
+            className={MoneyMatchButton} 
+            onClick={disconnect as any}
+          >
             Disconnect
           </button>
         </div>
@@ -293,7 +296,7 @@ export function App() {
         <div className="main">
           {connectors.map((connector) => (
             <button
-              className="card"
+              className={MoneyMatchButton}
               disabled={!connector.ready}
               key={connector.id}
               onClick={() => connect({ connector })}

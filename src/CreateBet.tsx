@@ -17,7 +17,7 @@ import {
   PlayerSeparatorContainer,
   Section,
 } from './App.css';
-import { LoadingRipple } from './Ripple200';
+import { LoadingRipple } from './LoadingRipple';
 import { ChevronDown } from './ChevronDown';
 
 export const CreateBet = ({
@@ -187,7 +187,7 @@ export const CreateBet = ({
               onChange={(e: any) => {
                 setP1ConnectCode(e.target.value);
               }}
-              value={`Œû ${betAmountStr}`}
+              value={`Ξ ${betAmountStr}`}
               disabled
             />
           </div>
@@ -238,7 +238,7 @@ export const CreateBet = ({
             </label>
             <TextInput
               onChange={(e: any) => setP2ConnectCode(e.target.value)}
-              value={`Œû ${betAmountStr}`}
+              value={`Ξ ${betAmountStr}`}
               disabled
             />
           </div>
@@ -253,7 +253,7 @@ export const CreateBet = ({
             // disabled={!address}
             disabled={false}
             style={{
-              marginTop: '4rem',
+              marginTop: '2rem',
             }}
             onClick={() => {
               const url = new URL(window.location.origin);

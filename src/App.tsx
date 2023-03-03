@@ -21,11 +21,12 @@ import {
   LeftNav,
   LoadingContainer,
   Main,
+  MoneyMatchButton,
   Nav,
 } from './App.css';
 import { CreateBet } from './CreateBet';
 import { Deposit } from './Deposit';
-import { LoadingRipple } from './Ripple200';
+import { LoadingRipple } from './LoadingRipple';
 
 export function App() {
   // wagmi hooks
@@ -209,7 +210,7 @@ export function App() {
         <div className={LoadingContainer}>
           <LoadingRipple size={'7rem'} colorVariant={'green'} margin={'none'} />
           <p style={{ marginTop: '1rem', fontSize: '1.5rem' }}>
-            WAITING FOR GAME
+            WAITING FOR GAME...
           </p>
         </div>
       );
@@ -234,13 +235,11 @@ export function App() {
           <h3>GAME!</h3>
           {winner === address ? (
             <button
+              className={MoneyMatchButton}
               disabled={!claim || !(winner === address) || claimed}
               onClick={() => claim?.()}
               style={{
                 marginTop: '1rem',
-                width: '12rem',
-                alignSelf: 'center',
-                height: '1.75rem',
               }}
             >
               Claim
@@ -249,11 +248,9 @@ export function App() {
             <p style={{ marginTop: '0.75rem' }}>You Lost :(</p>
           )}
           <button
+            className={MoneyMatchButton}
             style={{
               marginTop: '1rem',
-              width: '12rem',
-              alignSelf: 'center',
-              height: '1.75rem',
             }}
             // disable play again until winner has claimed
             disabled={winner === address && !claimed}

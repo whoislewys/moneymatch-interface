@@ -28,7 +28,6 @@ import {
 import { CreateBet } from "./CreateBet";
 import { Deposit } from "./Deposit";
 import { LoadingRipple } from "./Ripple200";
-import { Button } from "./components/Button";
 
 export function App() {
   // wagmi hooks
@@ -48,21 +47,21 @@ export function App() {
   }, [url]);
   // PLAYER 1
   const [isP1Active] = useState(
-    params.get("isP1Active") === "true" || params.get("isP1Active") === null
+    params.get('isP1Active') === 'true' || params.get('isP1Active') === null
   );
   const [p1ConnectCode, setP1ConnectCode] = useState(
-    params.get("p1ConnectCode") ?? ""
+    params.get('p1ConnectCode') ?? ''
   );
   const [p1Address, setP1Address] = useState<Address>(
-    (params.get("p1Address") as Address) ?? ethers.constants.AddressZero
+    (params.get('p1Address') as Address) ?? ethers.constants.AddressZero
   );
   // PLAYER 2
-  const [p2ConnectCode, setP2ConnectCode] = useState("");
+  const [p2ConnectCode, setP2ConnectCode] = useState('');
   const [p2Address, setP2Address] = useState<Address>(
     ethers.constants.AddressZero
   );
   // BOTH PLAYERS
-  const [betAmountStr] = useState("0.00345");
+  const [betAmountStr] = useState('0.00345');
 
   const clientId = import.meta.env?.VITE_WEB3AUTH_CLIENT_ID;
 
@@ -78,7 +77,7 @@ export function App() {
   useContractEvent({
     address: import.meta.env.VITE_ESCROW_FACTORY_ADDRESS,
     abi: EscrowFactory__factory.abi,
-    eventName: "EscrowCreated",
+    eventName: 'EscrowCreated',
     listener: (
       player1Id,
       player1Address,
@@ -86,9 +85,9 @@ export function App() {
       player2Address,
       escrowAddress
     ) => {
-      console.log("[EscrowCreated] address: ", escrowAddress);
+      console.log('[EscrowCreated] address: ', escrowAddress);
       // Wagmi is infurating for contract events, can't get multiple events or use query filters on the useContract result apparently (had to make my own ethers contract)
-      toast.success("Escrow created!");
+      toast.success('Escrow created!');
 
       setActiveEscrowAddress(escrowAddress);
 
@@ -113,15 +112,15 @@ export function App() {
   useContractEvent({
     address: activeEscrowAddress,
     abi: Escrow__factory.abi,
-    eventName: "Deposited",
+    eventName: 'Deposited',
     listener: (depositorAddress) => {
-      console.log(depositorAddress, "Deposited");
+      console.log(depositorAddress, 'Deposited');
       if (depositorAddress === p1Address) {
         setPlayer1HasDeposited(true);
-        toast.success("Player 1 deposited");
+        toast.success('Player 1 deposited');
       } else if (depositorAddress === p2Address) {
         setPlayer2HasDeposited(true);
-        toast.success("Player 2 deposited");
+        toast.success('Player 2 deposited');
       }
     },
   });
@@ -131,9 +130,9 @@ export function App() {
   useContractEvent({
     address: activeEscrowAddress,
     abi: Escrow__factory.abi,
-    eventName: "GameStarted",
+    eventName: 'GameStarted',
     listener: () => {
-      console.log("GameStarted");
+      console.log('GameStarted');
       setGameStarted(true);
     },
   });
@@ -144,9 +143,9 @@ export function App() {
   useContractEvent({
     address: activeEscrowAddress,
     abi: Escrow__factory.abi,
-    eventName: "GameEnded",
+    eventName: 'GameEnded',
     listener: (winner) => {
-      console.log("[GameEnded] winner: ", winner);
+      console.log('[GameEnded] winner: ', winner);
       setWinner(winner);
       setGameEnded(true);
     },
@@ -157,7 +156,7 @@ export function App() {
   const { config } = usePrepareContractWrite({
     address: activeEscrowAddress,
     abi: Escrow__factory.abi,
-    functionName: "claimWinnings",
+    functionName: 'claimWinnings',
     enabled: winner !== ethers.constants.AddressZero && !claimed,
   });
   const {
@@ -212,8 +211,8 @@ export function App() {
     } else if (player1HasDeposited && player2HasDeposited && !gameStarted) {
       return (
         <div className={LoadingContainer}>
-          <LoadingRipple size={"7rem"} colorVariant={"green"} margin={"none"} />
-          <p style={{ marginTop: "1rem", fontSize: "1.5rem" }}>
+          <LoadingRipple size={'7rem'} colorVariant={'green'} margin={'none'} />
+          <p style={{ marginTop: '1rem', fontSize: '1.5rem' }}>
             WAITING FOR GAME
           </p>
         </div>
@@ -226,8 +225,8 @@ export function App() {
     ) {
       return (
         <div className={LoadingContainer}>
-          <LoadingRipple size={"7rem"} colorVariant={"green"} margin={"none"} />
-          <p style={{ marginTop: "1rem", fontSize: "1.5rem" }}>
+          <LoadingRipple size={'7rem'} colorVariant={'green'} margin={'none'} />
+          <p style={{ marginTop: '1rem', fontSize: '1.5rem' }}>
             GAME IN PROGRESS...
           </p>
         </div>
@@ -242,23 +241,23 @@ export function App() {
               disabled={!claim || !(winner === address) || claimed}
               onClick={() => claim?.()}
               style={{
-                marginTop: "1rem",
-                width: "12rem",
-                alignSelf: "center",
-                height: "1.75rem",
+                marginTop: '1rem',
+                width: '12rem',
+                alignSelf: 'center',
+                height: '1.75rem',
               }}
             >
               Claim
             </button>
           ) : (
-            <p style={{ marginTop: "0.75rem" }}>You Lost :(</p>
+            <p style={{ marginTop: '0.75rem' }}>You Lost :(</p>
           )}
           <button
             style={{
-              marginTop: "1rem",
-              width: "12rem",
-              alignSelf: "center",
-              height: "1.75rem",
+              marginTop: '1rem',
+              width: '12rem',
+              alignSelf: 'center',
+              height: '1.75rem',
             }}
             // disable play again until winner has claimed
             disabled={winner === address && !claimed}

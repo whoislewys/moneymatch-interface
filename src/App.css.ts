@@ -55,7 +55,9 @@ export const Main = style({
 export const Header = style({
   display: 'flex',
   height: '69px',
-  padding: '1rem  2rem',
+  paddingTop: '1rem',
+  paddingLeft: '2rem',
+  paddingRight: '2rem',
   backgroundColor: violetDark.violet1,
 });
 
@@ -79,7 +81,6 @@ export const HeaderSeparator = style({
 export const Section = style({
   paddingLeft: '4rem',
   paddingRight: '4rem',
-  paddingBottom: '1rem',
 });
 
 export const Players = style({

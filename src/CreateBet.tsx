@@ -251,51 +251,64 @@ export const CreateBet = ({
         </div>
       </div>
 
-      {
-        // Copy link button is only needed when p1 is active
-        isP1Active ? (
-          <button
-            className={MoneyMatchButton}
-            // disabled={!address}
-            disabled={false}
-            style={{
-              marginTop: '2rem',
-            }}
-            onClick={() => {
-              const url = new URL(window.location.origin);
-              const params = new URLSearchParams(url.search);
-              params.append('isP1Active', 'false');
-              params.append('p1ConnectCode', p1ConnectCode);
-              params.append('p1Address', p1Address);
-              const new_url = new URL(`${url.origin}${url.pathname}?${params}`);
-
-              console.log('Bet Link', new_url.href);
-              navigator.clipboard.writeText(new_url.href);
-              toast.success('Bet link copied!');
-            }}
-          >
-            Copy Bet Link
-          </button>
-        ) : null
-      }
-
-      <button
-        className={MoneyMatchButton}
-        style={{ marginTop: '1.5rem', marginBottom: '2rem' }}
-        disabled={
-          !write ||
-          isLoading ||
-          p1Address === ethers.constants.AddressZero ||
-          p1ConnectCode === '' ||
-          p2Address === ethers.constants.AddressZero ||
-          p2ConnectCode === ''
-        }
-        onClick={() => {
-          write?.();
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          width: '100%',
+          alignItems: 'center',
+          marginBottom: '2rem',
         }}
       >
-        {isLoading ? <LoadingRipple /> : 'Create Bet'}
-      </button>
+        {
+          // Copy link button is only needed when p1 is active
+          isP1Active ? (
+            <button
+              className={MoneyMatchButton}
+              // disabled={!address}
+              disabled={false}
+              style={{
+                marginTop: '2rem',
+              }}
+              onClick={() => {
+                const url = new URL(window.location.origin);
+                const params = new URLSearchParams(url.search);
+                params.append('isP1Active', 'false');
+                params.append('p1ConnectCode', p1ConnectCode);
+                params.append('p1Address', p1Address);
+                const new_url = new URL(
+                  `${url.origin}${url.pathname}?${params}`
+                );
+
+                console.log('Bet Link', new_url.href);
+                navigator.clipboard.writeText(new_url.href);
+                toast.success('Bet link copied!');
+              }}
+            >
+              Copy Bet Link
+            </button>
+          ) : null
+        }
+
+        <button
+          className={MoneyMatchButton}
+          style={{ marginTop: '1.5rem' }}
+          disabled={
+            !write ||
+            isLoading ||
+            p1Address === ethers.constants.AddressZero ||
+            p1ConnectCode === '' ||
+            p2Address === ethers.constants.AddressZero ||
+            p2ConnectCode === ''
+          }
+          onClick={() => {
+            write?.();
+          }}
+        >
+          {isLoading ? <LoadingRipple /> : 'Create Bet'}
+        </button>
+      </div>
     </>
   );
 };

@@ -1,7 +1,7 @@
-import * as Separator from "@radix-ui/react-separator";
-import { ethers } from "ethers";
-import { useEffect, useMemo, useState } from "react";
-import { toast } from "react-hot-toast";
+import * as Separator from '@radix-ui/react-separator';
+import { ethers } from 'ethers';
+import { useEffect, useMemo, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import {
   Address,
   useAccount,
@@ -13,9 +13,9 @@ import {
   useWaitForTransaction,
   useConnect,
   useDisconnect,
-} from "wagmi";
-import { EscrowFactory__factory } from "../types/ethers-contracts/factories/contracts/EscrowFactory__factory";
-import { Escrow__factory } from "../types/ethers-contracts/factories/contracts/Escrow__factory";
+} from 'wagmi';
+import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
+import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';
 import {
   Header,
   HeaderSeparator,
@@ -273,17 +273,14 @@ export function App() {
     const web3authConnector = connectors[0];
     const { disconnect } = useDisconnect();
 
-    const formattedAddress = (() => {
-      return address ? address.slice(0, 6) + "..." + address.slice(-4) : "";
-    })
+    const formattedAddress = () => {
+      return address ? address.slice(0, 6) + '...' + address.slice(-4) : '';
+    };
 
     if (isConnected) {
       return (
         <div className="main">
-          <button 
-            className={MoneyMatchButton} 
-            onClick={disconnect as any}
-          >
+          <button className={MoneyMatchButton} onClick={disconnect as any}>
             {formattedAddress()}
           </button>
         </div>
@@ -299,10 +296,10 @@ export function App() {
               onClick={() => connect({ connector })}
             >
               {connector.name}
-              {!connector.ready && " (unsupported)"}
+              {!connector.ready && ' (unsupported)'}
               {isLoading &&
                 connector.id === pendingConnector?.id &&
-                " (connecting)"}
+                ' (connecting)'}
             </button>
           ))}
           {error && <div>{error.message}</div>}
@@ -313,7 +310,7 @@ export function App() {
 
   return (
     <main className={Main}>
-      <header className={Header}>
+      <div className={Header}>
         <nav className={Nav}>
           <div className={LeftNav}>
             <h1>MoneyMatch</h1>
@@ -322,13 +319,9 @@ export function App() {
             <Profile />
           </div>
         </nav>
-      </header>
+      </div>
 
-      <Separator.Root
-        decorative
-        orientation="horizontal"
-        className={HeaderSeparator}
-      />
+      <div className={HeaderSeparator} />
 
       {getScreen()}
     </main>

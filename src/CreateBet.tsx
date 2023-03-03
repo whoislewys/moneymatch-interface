@@ -10,8 +10,8 @@ import {
 } from 'wagmi';
 import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
 import {
-  ChevronUpAnimation,
   ChevronDownAnimation,
+  ChevronUpAnimation,
   InstructionsCard,
   MoneyMatchButton,
   PlayerBox,
@@ -48,7 +48,7 @@ export const CreateBet = ({
       ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
       : '0x7643c4F21661691fb851AfedaF627695672C9fac';
 
-  const [areInstructionsOpen, setAreInstructionsOpen] = useState(false);
+  const [areInstructionsOpen, setAreInstructionsOpen] = useState(true);
 
   const { address } = useAccount();
 
@@ -88,15 +88,6 @@ export const CreateBet = ({
 
   return (
     <>
-      <section className={Section}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        ></div>
-      </section>
 
       <div className={InstructionsCard}>
         <div>

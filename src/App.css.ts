@@ -54,8 +54,7 @@ export const Main = style({
 
 export const Header = style({
   display: 'flex',
-  height: '69px',
-  paddingTop: '1rem',
+  padding: '1rem',
   paddingLeft: '2rem',
   paddingRight: '2rem',
   backgroundColor: violetDark.violet1,
@@ -64,6 +63,7 @@ export const Header = style({
 export const Nav = style({
   display: 'flex',
   width: '100%',
+  height: '100%',
   alignItems: 'center',
   justifyContent: 'space-between',
 });
@@ -74,7 +74,7 @@ export const LeftNav = style({
 
 export const HeaderSeparator = style({
   height: '2px',
-  width: '100%',
+  width: '100vw',
   backgroundColor: violetDarkA.violetA5,
 });
 

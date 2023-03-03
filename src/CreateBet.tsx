@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import TextInput from './TextInput';
 import { Address, useAccount } from 'wagmi';
@@ -18,6 +18,7 @@ import {
   Section,
 } from './App.css';
 import { LoadingRipple } from './Ripple200';
+import { ChevronDown } from './ChevronDown';
 
 export const CreateBet = ({
   isP1Active,
@@ -44,6 +45,8 @@ export const CreateBet = ({
     import.meta.env?.MODE === 'development'
       ? '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
       : '0x7643c4F21661691fb851AfedaF627695672C9fac';
+
+  const [areInstructionsOpen, setAreInstructionsOpen] = useState(false);
 
   const { address } = useAccount();
 
@@ -93,23 +96,59 @@ export const CreateBet = ({
         ></div>
       </section>
 
-      <div className={ InstructionsCard }>
+      <div className={InstructionsCard}>
         <div>
-          <p style={{ fontSize: '2rem', fontWeight: '600', textAlign: 'left', marginLeft: '.5rem' }}>Instructions</p>
-          <ol style={{ fontSize: '1.25rem' }}>
-            <li>Connect your wallet (at the top right).</li>
-            <li style={{ marginTop: '.75rem' }}>Fill out your connect code.</li>
-            <li style={{ marginTop: '.75rem' }}>
-              Click the "Copy Bet Link" button and send the link to your opponent.
-            </li>
-          </ol>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <p
+              style={{
+                fontSize: '2rem',
+                fontWeight: '600',
+                textAlign: 'left',
+                marginLeft: '.5rem',
+              }}
+            >
+              Instructions
+            </p>
+            <div
+              onClick={() => setAreInstructionsOpen(!areInstructionsOpen)}
+              style={{
+                border: 'none',
+                background: 'none',
+                marginTop: '-2px',
+              }}
+            >
+              <ChevronDown />
+            </div>
+          </div>
+          <div
+            style={{
+              display: areInstructionsOpen ? '' : 'none',
+            }}
+          >
+            <ol style={{ fontSize: '1.25rem' }}>
+              <li>Connect your wallet (at the top right).</li>
+              <li style={{ marginTop: '.75rem' }}>
+                Fill out your connect code.
+              </li>
+              <li style={{ marginTop: '.75rem' }}>
+                Click the "Copy Bet Link" button and send the link to your
+                opponent.
+              </li>
+            </ol>
+          </div>
         </div>
-        
       </div>
 
       <div className={Players}>
         <div className={PlayerBox}>
-          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>{isP1Active ? 'Your Details' : "Opponent's Details"}</h3>
+          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>
+            {isP1Active ? 'Your Details' : "Opponent's Details"}
+          </h3>
 
           <div
             style={{
@@ -130,20 +169,26 @@ export const CreateBet = ({
               }}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Wallet Address</label>
-            <TextInput 
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+              Wallet Address
+            </label>
+            <TextInput
               onChange={(e: any) => {
                 setP1ConnectCode(e.target.value);
               }}
-              disabled value={p1Address} 
+              disabled
+              value={p1Address}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+              Bet Amount
+            </label>
             <TextInput
-             onChange={(e: any) => {
-              setP1ConnectCode(e.target.value);
-            }}
-              value={`Œû ${betAmountStr}`} disabled 
+              onChange={(e: any) => {
+                setP1ConnectCode(e.target.value);
+              }}
+              value={`Œû ${betAmountStr}`}
+              disabled
             />
           </div>
         </div>
@@ -159,7 +204,9 @@ export const CreateBet = ({
         </div>
 
         <div className={PlayerBox}>
-          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>{isP1Active ? "Opponent's Details" : 'Your Details'}</h3>
+          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>
+            {isP1Active ? "Opponent's Details" : 'Your Details'}
+          </h3>
           <div
             style={{
               display: 'flex',
@@ -177,16 +224,22 @@ export const CreateBet = ({
               onChange={(e: any) => setP2ConnectCode(e.target.value)}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Wallet Address</label>
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+              Wallet Address
+            </label>
             <TextInput
               onChange={(e: any) => setP2ConnectCode(e.target.value)}
-              disabled value={p2Address} 
+              disabled
+              value={p2Address}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
-            <TextInput 
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+              Bet Amount
+            </label>
+            <TextInput
               onChange={(e: any) => setP2ConnectCode(e.target.value)}
-              value={`Œû ${betAmountStr}`} disabled 
+              value={`Œû ${betAmountStr}`}
+              disabled
             />
           </div>
         </div>

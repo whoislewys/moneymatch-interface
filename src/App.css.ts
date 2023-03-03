@@ -148,9 +148,8 @@ export const TextInputStyle = style({
 export const InstructionsCard = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
   justifyContent: 'center',
-  width: '30%',
+  width: '36rem',
   alignSelf: 'center',
   background: mauveDark.mauve3,
   borderRadius: '1rem',

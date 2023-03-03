@@ -1,5 +1,12 @@
 import { globalStyle, style } from '@vanilla-extract/css';
-import { grassDark, grayDark, limeDark, mauveDark, violetDark, violetDarkA } from '@radix-ui/colors';
+import {
+  grassDark,
+  grayDark,
+  limeDark,
+  mauveDark,
+  violetDark,
+  violetDarkA,
+} from '@radix-ui/colors';
 
 // Reset
 globalStyle('html', {
@@ -18,7 +25,7 @@ globalStyle('p, h1, h2, h3, h4, h5, h6', {
   margin: 0,
   padding: 0,
   border: 0,
-  fontFamily: 'Rubik, sans-serif'
+  fontFamily: 'Rubik, sans-serif',
 });
 
 globalStyle('h1', {
@@ -34,7 +41,6 @@ globalStyle('#root', {
   display: 'block',
   margin: 0,
 });
-
 
 // override rainbow kit provider's style
 globalStyle('div[data-rk]', {
@@ -129,7 +135,7 @@ export const MoneyMatchButton = style({
   ':disabled': {
     background: grayDark.gray8,
     color: grayDark.gray9,
-  }
+  },
 });
 
 export const TextInputStyle = style({
@@ -139,10 +145,10 @@ export const TextInputStyle = style({
   backgroundColor: mauveDark.mauve12,
   border: 'none',
   borderRadius: '.5rem',
- ':disabled': {
+  ':disabled': {
     background: grayDark.gray8,
     color: grayDark.gray9,
-  }
+  },
 });
 
 export const InstructionsCard = style({
@@ -155,4 +161,12 @@ export const InstructionsCard = style({
   borderRadius: '1rem',
   padding: '1rem',
   marginTop: '2rem',
-})
+});
+
+export const ChevronUpAnimation = style({
+  transform: 'rotate(-180deg)',
+});
+
+export const ChevronDownAnimation = style({
+  transform: 'rotate(0)',
+});

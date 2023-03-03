@@ -10,6 +10,8 @@ import {
 } from 'wagmi';
 import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
 import {
+  ChevronUpAnimation,
+  ChevronDownAnimation,
   InstructionsCard,
   MoneyMatchButton,
   PlayerBox,
@@ -120,7 +122,9 @@ export const CreateBet = ({
                 border: 'none',
                 background: 'none',
                 marginTop: '-2px',
+                transition: 'all 0.5s',
               }}
+              className={areInstructionsOpen ? ChevronUpAnimation: ChevronDownAnimation}
             >
               <ChevronDown />
             </div>

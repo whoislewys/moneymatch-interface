@@ -1,12 +1,9 @@
 import { ethers } from 'ethers';
 import { useMemo } from 'react';
 import { toast } from 'react-hot-toast';
-<<<<<<< HEAD
 import TextInput from './TextInput';
 import type { Address } from 'wagmi';
-=======
-import { Address, useAccount } from 'wagmi';
->>>>>>> 40afe00 (clean it up a bit + new conch types)
+import { useAccount } from 'wagmi';
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -117,11 +114,8 @@ export const CreateBet = ({
 
       <div className={Players}>
         <div className={PlayerBox}>
-<<<<<<< HEAD
           <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>Your Details</h3>
-=======
           <h3>{isP1Active ? 'Your Details' : "Opponent's Details"}</h3>
->>>>>>> a3e162f (disable play again until winner has claimed + dynamic your details vs their details text)
 
           <div
             style={{
@@ -150,7 +144,6 @@ export const CreateBet = ({
               disabled value={p1Address} 
             />
 
-<<<<<<< HEAD
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
             <TextInput
              onChange={(e: any) => {
@@ -158,10 +151,8 @@ export const CreateBet = ({
             }}
               value={'Ξ 0.1'} disabled 
             />
-=======
             <label style={{ marginTop: '1rem' }}>Bet Amount</label>
             <input value={`Ξ ${betAmountStr}`} disabled />
->>>>>>> 40afe00 (clean it up a bit + new conch types)
           </div>
         </div>
 
@@ -176,11 +167,8 @@ export const CreateBet = ({
         </div>
 
         <div className={PlayerBox}>
-<<<<<<< HEAD
           <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>Opponent's Details</h3>
-=======
           <h3>{isP1Active ? "Opponent's Details" : 'Your Details'}</h3>
->>>>>>> a3e162f (disable play again until winner has claimed + dynamic your details vs their details text)
           <div
             style={{
               display: 'flex',
@@ -204,21 +192,13 @@ export const CreateBet = ({
               disabled value={p2Address} 
             />
 
-<<<<<<< HEAD
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
             <TextInput 
-<<<<<<< HEAD
-              onChange={(e) => setP2ConnectCode(e.target.value)}
-              value={'Ξ 0.1'} disabled 
-=======
               onChange={(e: any) => setP2ConnectCode(e.target.value)}
               value={`Ξ ${betAmountStr}`} disabled 
->>>>>>> 23f0964 (fixed errors)
             />
-=======
             <label style={{ marginTop: '1rem' }}>Bet Amount</label>
             <input value={`Ξ ${betAmountStr}`} disabled />
->>>>>>> 40afe00 (clean it up a bit + new conch types)
           </div>
         </div>
       </div>
@@ -227,11 +207,8 @@ export const CreateBet = ({
         // Copy link button is only needed when p1 is active
         isP1Active ? (
           <button
-<<<<<<< HEAD
             className={MoneyMatchButton}
-=======
             disabled={!address}
->>>>>>> 40afe00 (clean it up a bit + new conch types)
             style={{
               marginTop: '4rem',
             }}

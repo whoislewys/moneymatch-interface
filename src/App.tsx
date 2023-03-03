@@ -169,27 +169,7 @@ export function App() {
   });
 
   const getScreen = () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
-    // console.log('[getscreen] player1HasDeposited', player1HasDeposited);
-    // console.log('[getscreen] player2HasDeposited', player2HasDeposited);
-    // console.log('[getscreen] activeEscrowAddress', activeEscrowAddress);
-    if (
-      activeEscrowAddress === ethers.constants.AddressZero
-      ) {
-=======
     if (activeEscrowAddress === ethers.constants.AddressZero) {
->>>>>>> 40afe00 (clean it up a bit + new conch types)
-=======
-    if ( false
-=======
-    if ( true
->>>>>>> c0a6d30 (font added)
-      // activeEscrowAddress === ethers.constants.AddressZero
-      ) {
->>>>>>> 9797467 (loading ripple)
       // MVP Create Bet Screen. bet amount values hardcoded, p1 fills out his bet copies link, sends it to p2
       return (
         <CreateBet

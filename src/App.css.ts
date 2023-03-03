@@ -1,12 +1,10 @@
-import { globalStyle, style } from '@vanilla-extract/css';
 import {
   grassDark,
-  grayDark,
-  limeDark,
   mauveDark,
   violetDark,
   violetDarkA,
 } from '@radix-ui/colors';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 // Reset
 globalStyle('html', {
@@ -88,7 +86,7 @@ export const Section = style({
 export const Players = style({
   display: 'flex',
   width: '38rem',
-  height: '100%',
+  height: '20rem',
   alignSelf: 'center',
   justifyContent: 'space-between',
   marginTop: '2rem',
@@ -134,8 +132,8 @@ export const MoneyMatchButton = style({
   cursor: 'pointer',
   border: 'none',
   ':disabled': {
-    background: grayDark.gray8,
-    color: grayDark.gray9,
+    background: mauveDark.mauve8,
+    color: mauveDark.mauve10,
     cursor: 'not-allowed',
   },
 });

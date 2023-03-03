@@ -124,7 +124,9 @@ export const CreateBet = ({
                 marginTop: '-2px',
                 transition: 'all 0.5s',
               }}
-              className={areInstructionsOpen ? ChevronUpAnimation: ChevronDownAnimation}
+              className={
+                areInstructionsOpen ? ChevronUpAnimation : ChevronDownAnimation
+              }
             >
               <ChevronDown />
             </div>
@@ -277,33 +279,23 @@ export const CreateBet = ({
         ) : null
       }
 
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignSelf: 'center',
-          marginTop: '2.5rem',
-          width: '12rem',
+      <button
+        className={MoneyMatchButton}
+        style={{ marginTop: '1.5rem', marginBottom: '2rem' }}
+        disabled={
+          !write ||
+          isLoading ||
+          p1Address === ethers.constants.AddressZero ||
+          p1ConnectCode === '' ||
+          p2Address === ethers.constants.AddressZero ||
+          p2ConnectCode === ''
+        }
+        onClick={() => {
+          write?.();
         }}
       >
-        <button
-          className={MoneyMatchButton}
-          disabled={
-            !write ||
-            isLoading ||
-            p1Address === ethers.constants.AddressZero ||
-            p1ConnectCode === '' ||
-            p2Address === ethers.constants.AddressZero ||
-            p2ConnectCode === ''
-          }
-          onClick={() => {
-            write?.();
-          }}
-        >
-          {isLoading ? <LoadingRipple /> : 'Create Bet'}
-        </button>
-      </div>
+        {isLoading ? <LoadingRipple /> : 'Create Bet'}
+      </button>
     </>
   );
 };

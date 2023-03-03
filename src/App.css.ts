@@ -131,10 +131,12 @@ export const MoneyMatchButton = style({
   justifyContent: 'center',
   alignSelf: 'center',
   borderRadius: '1rem',
+  cursor: 'pointer',
   border: 'none',
   ':disabled': {
     background: grayDark.gray8,
     color: grayDark.gray9,
+    cursor: 'not-allowed',
   },
 });
 

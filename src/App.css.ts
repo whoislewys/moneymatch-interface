@@ -66,7 +66,7 @@ export const Main = style({
 export const Header = style({
   display: 'flex',
   height: '69px',
-  padding: '1rem  2rem',
+  padding: '0.5rem  2rem',
   backgroundColor: violetDark.violet1,
 });
 

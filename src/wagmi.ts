@@ -2,7 +2,7 @@ import { configureChains, createClient } from 'wagmi';
 import { localhost, polygonMumbai } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
-import Web3AuthConnectorInstance from "./Web3AuthConnectorInstance";
+import Web3AuthConnectorInstance from './Web3AuthConnectorInstance';
 
 console.log(import.meta.env?.MODE);
 const { chains, provider, webSocketProvider } = configureChains(
@@ -20,6 +20,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 
 export const client = createClient({
   autoConnect: true,
+  connectors: [Web3AuthConnectorInstance(chains)],
   provider,
   webSocketProvider,
 });

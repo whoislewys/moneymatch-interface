@@ -1,5 +1,10 @@
+import {
+  grassDark,
+  mauveDark,
+  violetDark,
+  violetDarkA,
+} from '@radix-ui/colors';
 import { globalFontFace, globalStyle, style } from '@vanilla-extract/css';
-import { grassDark, grayDark, limeDark, mauveDark, violetDark, violetDarkA } from '@radix-ui/colors';
 
 const rubik = 'GlobalRubik';
 const rubikPuddles = 'GlobalRubikPuddles';
@@ -37,7 +42,7 @@ globalStyle('h1', {
   padding: 0,
   border: 0,
   fontSize: '2.25rem',
-  fontFamily: 'Rubik Puddles',
+  fontFamily: rubikPuddles
 });
 
 globalStyle('#root', {
@@ -45,7 +50,6 @@ globalStyle('#root', {
   display: 'block',
   margin: 0,
 });
-
 
 // override rainbow kit provider's style
 globalStyle('div[data-rk]', {
@@ -93,7 +97,7 @@ export const Section = style({
 export const Players = style({
   display: 'flex',
   width: '38rem',
-  height: '100%',
+  height: '20rem',
   alignSelf: 'center',
   justifyContent: 'space-between',
   marginTop: '2rem',
@@ -136,11 +140,13 @@ export const MoneyMatchButton = style({
   justifyContent: 'center',
   alignSelf: 'center',
   borderRadius: '1rem',
+  cursor: 'pointer',
   border: 'none',
   ':disabled': {
-    background: grayDark.gray8,
-    color: grayDark.gray9,
-  }
+    background: mauveDark.mauve8,
+    color: mauveDark.mauve10,
+    cursor: 'not-allowed',
+  },
 });
 
 export const TextInputStyle = style({
@@ -150,10 +156,11 @@ export const TextInputStyle = style({
   backgroundColor: mauveDark.mauve12,
   border: 'none',
   borderRadius: '.5rem',
- ':disabled': {
-    background: grayDark.gray8,
-    color: grayDark.gray9,
-  }
+  ':disabled': {
+    cursor: 'not-allowed',
+    background: mauveDark.mauve8,
+    color: mauveDark.mauve10,
+  },
 });
 
 export const InstructionsCard = style({
@@ -166,4 +173,12 @@ export const InstructionsCard = style({
   borderRadius: '1rem',
   padding: '1rem',
   marginTop: '2rem',
-})
+});
+
+export const ChevronUpAnimation = style({
+  transform: 'rotate(-180deg)',
+});
+
+export const ChevronDownAnimation = style({
+  transform: 'rotate(0)',
+});

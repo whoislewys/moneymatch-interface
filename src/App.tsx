@@ -273,16 +273,18 @@ export function App() {
     const web3authConnector = connectors[0];
     const { disconnect } = useDisconnect();
 
+    const formattedAddress = (() => {
+      return address ? address.slice(0, 6) + "..." + address.slice(-4) : "";
+    })
+
     if (isConnected) {
       return (
         <div className="main">
-          <div className="title">Connected to {connector?.name}</div>
-          <div>{address}</div>
           <button 
             className={MoneyMatchButton} 
             onClick={disconnect as any}
           >
-            Disconnect
+            {formattedAddress()}
           </button>
         </div>
       );

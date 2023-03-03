@@ -295,11 +295,10 @@ export function App() {
               key={connector.id}
               onClick={() => connect({ connector })}
             >
-              {connector.name}
-              {!connector.ready && ' (unsupported)'}
-              {isLoading &&
-                connector.id === pendingConnector?.id &&
-                ' (connecting)'}
+              {isLoading && connector.id === pendingConnector?.id ? 
+                (<LoadingRipple size={'3rem'} margin={'none'} />) : 
+                'Connect Wallet'
+              }
             </button>
           ))}
           {error && <div>{error.message}</div>}

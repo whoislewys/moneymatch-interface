@@ -146,8 +146,9 @@ export const TextInputStyle = style({
   border: 'none',
   borderRadius: '.5rem',
   ':disabled': {
-    background: grayDark.gray8,
-    color: grayDark.gray9,
+    cursor: 'not-allowed',
+    background: mauveDark.mauve8,
+    color: mauveDark.mauve10,
   },
 });
 

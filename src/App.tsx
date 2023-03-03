@@ -25,6 +25,9 @@ import {
 } from "./App.css";
 import { CreateBet } from "./CreateBet";
 import { Deposit } from "./Deposit";
+import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { Web3Auth } from "@web3auth/modal";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { LoadingRipple } from "./Ripple200";
 
 export function App() {
@@ -60,6 +63,54 @@ export function App() {
   );
   // BOTH PLAYERS
   const [betAmountStr] = useState("0.00345");
+
+  const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
+  const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
+    null
+  );
+  const clientId = import.meta.env?.VITE_WEB3AUTH_CLIENT_ID;
+
+  useEffect(() => {
+    const init = async () => {
+      try {
+        const web3auth = new Web3Auth({
+          clientId,
+          web3AuthNetwork: "testnet", // mainnet, aqua, celeste, cyan or testnet
+          chainConfig: {
+            chainNamespace: CHAIN_NAMESPACES.EIP155,
+            chainId: "0x1",
+          },
+        });
+
+        const openloginAdapter = new OpenloginAdapter({
+          loginSettings: {
+            mfaLevel: "default",
+          },
+          adapterSettings: {
+            whiteLabel: {
+              name: "Your app Name",
+              logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
+              logoDark: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
+              defaultLanguage: "en",
+              dark: true, // whether to enable dark mode. defaultValue: false
+            },
+          },
+        });
+        web3auth.configureAdapter(openloginAdapter);
+
+        setWeb3auth(web3auth);
+
+        await web3auth.initModal();
+        if (web3auth.provider) {
+          setProvider(web3auth.provider);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    init();
+  }, []);
 
   // set address and connect code depending on active player
   useEffect(() => {
@@ -266,6 +317,16 @@ export function App() {
     }
   };
 
+  const login = async () => {
+    if (!web3auth) {
+      console.log("web3auth not initialized yet");
+      return;
+    }
+    const web3authProvider = await web3auth.connect();
+    setProvider(web3authProvider);
+    console.log("Logged in Successfully!");
+  };
+
   return (
     <main className={Main}>
       <header className={Header}>
@@ -274,7 +335,8 @@ export function App() {
             <h1>MoneyMatch</h1>
           </div>
           <div>
-            <ConnectButton />
+            <button onClick={login}>LogIn</button>
+            {/* <ConnectButton /> */}
           </div>
         </nav>
       </header>

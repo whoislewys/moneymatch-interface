@@ -2,8 +2,7 @@ import { ethers } from 'ethers';
 import { useMemo } from 'react';
 import { toast } from 'react-hot-toast';
 import TextInput from './TextInput';
-import type { Address } from 'wagmi';
-import { useAccount } from 'wagmi';
+import { Address, useAccount } from 'wagmi';
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -11,6 +10,7 @@ import {
 } from 'wagmi';
 import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
 import {
+  InstructionsCard,
   MoneyMatchButton,
   PlayerBox,
   Players,
@@ -93,29 +93,23 @@ export const CreateBet = ({
         ></div>
       </section>
 
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          width: '30%',
-          alignSelf: 'center',
-        }}
-      >
-        <p style={{ fontSize: '1.9rem', textAlign: 'center' }}>$$ MoneyMatch Instructions $$</p>
-        <ol style={{ fontSize: '1.2rem' }}>
-          <li>Connect your wallet (at the top right).</li>
-          <li>Fill out your connect code.</li>
-          <li>
-            Click the "Copy Bet Link" button and send the link to your opponent.
-          </li>
-        </ol>
+      <div className={ InstructionsCard }>
+        <div>
+          <p style={{ fontSize: '2rem', fontWeight: '600', textAlign: 'left', marginLeft: '.5rem' }}>Instructions</p>
+          <ol style={{ fontSize: '1.25rem' }}>
+            <li>Connect your wallet (at the top right).</li>
+            <li style={{ marginTop: '.75rem' }}>Fill out your connect code.</li>
+            <li style={{ marginTop: '.75rem' }}>
+              Click the "Copy Bet Link" button and send the link to your opponent.
+            </li>
+          </ol>
+        </div>
+        
       </div>
 
       <div className={Players}>
         <div className={PlayerBox}>
-          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>Your Details</h3>
-          <h3>{isP1Active ? 'Your Details' : "Opponent's Details"}</h3>
+          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>{isP1Active ? 'Your Details' : "Opponent's Details"}</h3>
 
           <div
             style={{
@@ -127,7 +121,7 @@ export const CreateBet = ({
               width: '12rem',
             }}
           >
-            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
+            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
             <TextInput
               value={p1ConnectCode}
               disabled={!isP1Active}
@@ -149,10 +143,8 @@ export const CreateBet = ({
              onChange={(e: any) => {
               setP1ConnectCode(e.target.value);
             }}
-              value={'Ξ 0.1'} disabled 
+              value={`Œû ${betAmountStr}`} disabled 
             />
-            <label style={{ marginTop: '1rem' }}>Bet Amount</label>
-            <input value={`Ξ ${betAmountStr}`} disabled />
           </div>
         </div>
 
@@ -167,8 +159,7 @@ export const CreateBet = ({
         </div>
 
         <div className={PlayerBox}>
-          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>Opponent's Details</h3>
-          <h3>{isP1Active ? "Opponent's Details" : 'Your Details'}</h3>
+          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>{isP1Active ? "Opponent's Details" : 'Your Details'}</h3>
           <div
             style={{
               display: 'flex',
@@ -179,7 +170,7 @@ export const CreateBet = ({
               width: '12rem',
             }}
           >
-            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
+            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
             <TextInput
               value={p2ConnectCode}
               disabled={isP1Active}
@@ -195,10 +186,8 @@ export const CreateBet = ({
             <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
             <TextInput 
               onChange={(e: any) => setP2ConnectCode(e.target.value)}
-              value={`Ξ ${betAmountStr}`} disabled 
+              value={`Œû ${betAmountStr}`} disabled 
             />
-            <label style={{ marginTop: '1rem' }}>Bet Amount</label>
-            <input value={`Ξ ${betAmountStr}`} disabled />
           </div>
         </div>
       </div>
@@ -208,7 +197,8 @@ export const CreateBet = ({
         isP1Active ? (
           <button
             className={MoneyMatchButton}
-            disabled={!address}
+            // disabled={!address}
+            disabled={false}
             style={{
               marginTop: '4rem',
             }}
@@ -236,7 +226,7 @@ export const CreateBet = ({
           flexDirection: 'column',
           justifyContent: 'center',
           alignSelf: 'center',
-          marginTop: '4rem',
+          marginTop: '2.5rem',
           width: '12rem',
         }}
       >

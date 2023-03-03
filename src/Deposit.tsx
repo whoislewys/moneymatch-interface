@@ -53,13 +53,9 @@ export const Deposit = ({
   }, [isWriteLoading, isWaitLoading]);
 
   const getButtonContents = (playerHasDeposited: boolean) => {
-    if ( false
-      // playerHasDeposited
-      ) {
+    if (playerHasDeposited) {
       return 'Deposited';
-    } else if ( true
-      // isLoading
-      ) {
+    } else if (isLoading) {
       return <LoadingRipple />;
     } else {
       return 'Deposit';
@@ -93,7 +89,7 @@ export const Deposit = ({
               width: '12rem',
             }}
           >
-            <label>Connect Code</label>
+            <label>Connect Code</label>
             <input value={p1ConnectCode} disabled />
 
             <label style={{ marginTop: '1rem' }}>Wallet Address</label>
@@ -141,7 +137,7 @@ export const Deposit = ({
               width: '12rem',
             }}
           >
-            <label>Connect Code</label>
+            <label>Connect Code</label>
             <input value={p2ConnectCode} disabled />
 
             <label style={{ marginTop: '1rem' }}>Wallet Address</label>

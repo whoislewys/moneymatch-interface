@@ -1,5 +1,5 @@
 import { globalStyle, style } from '@vanilla-extract/css';
-import { violetDark, violetDarkA } from '@radix-ui/colors';
+import { grassDark, grayDark, limeDark, mauveDark, violetDark, violetDarkA } from '@radix-ui/colors';
 
 // Reset
 globalStyle('html', {
@@ -18,7 +18,15 @@ globalStyle('p, h1, h2, h3, h4, h5, h6', {
   margin: 0,
   padding: 0,
   border: 0,
-  fontFamily: 'Maven Pro',
+  fontFamily: 'Rubik, sans-serif'
+});
+
+globalStyle('h1', {
+  margin: 0,
+  padding: 0,
+  border: 0,
+  fontSize: '2.25rem',
+  fontFamily: 'Rubik Puddles',
 });
 
 globalStyle('#root', {
@@ -73,21 +81,16 @@ export const Section = style({
 
 export const Players = style({
   display: 'flex',
-  width: '60%',
+  width: 'calc(60% + 2rem)',
   height: '100%',
   alignSelf: 'center',
-  justifyContent: 'space-around',
-});
-
-export const PlayerBox = style({
+  justifyContent: 'space-between',
   marginTop: '2rem',
-  width: '30%',
 });
 
 export const PlayerSeparatorContainer = style({
   display: 'flex',
   justifyContent: 'center',
-  width: '10%',
 });
 
 export const PlayerSeparator = style({
@@ -103,16 +106,53 @@ export const LoadingContainer = style({
   height: '80vh',
 });
 
+export const PlayerBox = style({
+  width: '30%',
+  padding: '2rem',
+  borderRadius: '1rem',
+  background: mauveDark.mauve3,
+});
+
 export const MoneyMatchButton = style({
   height: '2.5rem',
   width: '12rem',
   fontSize: '1rem',
   fontWeight: 'bold',
+  background: grassDark.grass9,
+  color: 'white',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   alignSelf: 'center',
   borderRadius: '1rem',
   border: 'none',
+  ':disabled': {
+    background: grayDark.gray8,
+    color: grayDark.gray9,
+  }
 });
 
+export const TextInputStyle = style({
+  width: '15rem',
+  fontSize: '1.5rem',
+  padding: '.25rem',
+  backgroundColor: mauveDark.mauve12,
+  border: 'none',
+  borderRadius: '.5rem',
+ ':disabled': {
+    background: grayDark.gray8,
+    color: grayDark.gray9,
+  }
+});
+
+export const InstructionsCard = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '30%',
+  alignSelf: 'center',
+  background: mauveDark.mauve3,
+  borderRadius: '1rem',
+  padding: '1rem',
+})

@@ -1,5 +1,4 @@
 import * as Separator from "@radix-ui/react-separator";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ethers } from "ethers";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -12,6 +11,8 @@ import {
   useProvider,
   useSigner,
   useWaitForTransaction,
+  useConnect,
+  useDisconnect,
 } from "wagmi";
 import { EscrowFactory__factory } from "../types/ethers-contracts/factories/contracts/EscrowFactory__factory";
 import { Escrow__factory } from "../types/ethers-contracts/factories/contracts/Escrow__factory";
@@ -64,53 +65,7 @@ export function App() {
   // BOTH PLAYERS
   const [betAmountStr] = useState("0.00345");
 
-  const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
-  const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
-    null
-  );
   const clientId = import.meta.env?.VITE_WEB3AUTH_CLIENT_ID;
-
-  useEffect(() => {
-    const init = async () => {
-      try {
-        const web3auth = new Web3Auth({
-          clientId,
-          web3AuthNetwork: "testnet", // mainnet, aqua, celeste, cyan or testnet
-          chainConfig: {
-            chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: "0x1",
-          },
-        });
-
-        const openloginAdapter = new OpenloginAdapter({
-          loginSettings: {
-            mfaLevel: "default",
-          },
-          adapterSettings: {
-            whiteLabel: {
-              name: "Your app Name",
-              logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
-              logoDark: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
-              defaultLanguage: "en",
-              dark: true, // whether to enable dark mode. defaultValue: false
-            },
-          },
-        });
-        web3auth.configureAdapter(openloginAdapter);
-
-        setWeb3auth(web3auth);
-
-        await web3auth.initModal();
-        if (web3auth.provider) {
-          setProvider(web3auth.provider);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    init();
-  }, []);
 
   // set address and connect code depending on active player
   useEffect(() => {
@@ -317,15 +272,44 @@ export function App() {
     }
   };
 
-  const login = async () => {
-    if (!web3auth) {
-      console.log("web3auth not initialized yet");
-      return;
+  function Profile() {
+    const { address, connector, isConnected } = useAccount();
+    const { connect, connectors, error, isLoading, pendingConnector } =
+      useConnect();
+    const { disconnect } = useDisconnect();
+
+    if (isConnected) {
+      return (
+        <div className="main">
+          <div className="title">Connected to {connector?.name}</div>
+          <div>{address}</div>
+          <button className="card" onClick={disconnect as any}>
+            Disconnect
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="main">
+          {connectors.map((connector) => (
+            <button
+              className="card"
+              disabled={!connector.ready}
+              key={connector.id}
+              onClick={() => connect({ connector })}
+            >
+              {connector.name}
+              {!connector.ready && " (unsupported)"}
+              {isLoading &&
+                connector.id === pendingConnector?.id &&
+                " (connecting)"}
+            </button>
+          ))}
+          {error && <div>{error.message}</div>}
+        </div>
+      );
     }
-    const web3authProvider = await web3auth.connect();
-    setProvider(web3authProvider);
-    console.log("Logged in Successfully!");
-  };
+  }
 
   return (
     <main className={Main}>
@@ -335,8 +319,7 @@ export function App() {
             <h1>MoneyMatch</h1>
           </div>
           <div>
-            <button onClick={login}>LogIn</button>
-            {/* <ConnectButton /> */}
+            <Profile />
           </div>
         </nav>
       </header>

@@ -1,8 +1,7 @@
-import * as Separator from '@radix-ui/react-separator';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { ethers } from 'ethers';
-import { useEffect, useMemo, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import * as Separator from "@radix-ui/react-separator";
+import { ethers } from "ethers";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-hot-toast";
 import {
   Address,
   useAccount,
@@ -12,9 +11,11 @@ import {
   useProvider,
   useSigner,
   useWaitForTransaction,
-} from 'wagmi';
-import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
-import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';
+  useConnect,
+  useDisconnect,
+} from "wagmi";
+import { EscrowFactory__factory } from "../types/ethers-contracts/factories/contracts/EscrowFactory__factory";
+import { Escrow__factory } from "../types/ethers-contracts/factories/contracts/Escrow__factory";
 import {
   Header,
   HeaderSeparator,
@@ -61,6 +62,8 @@ export function App() {
   );
   // BOTH PLAYERS
   const [betAmountStr] = useState('0.00345');
+
+  const clientId = import.meta.env?.VITE_WEB3AUTH_CLIENT_ID;
 
   // set address and connect code depending on active player
   useEffect(() => {
@@ -263,6 +266,49 @@ export function App() {
     }
   };
 
+  function Profile() {
+    const { address, connector, isConnected } = useAccount();
+    const { connect, connectors, error, isLoading, pendingConnector } =
+      useConnect();
+    const web3authConnector = connectors[0];
+    const { disconnect } = useDisconnect();
+
+    if (isConnected) {
+      return (
+        <div className="main">
+          <div className="title">Connected to {connector?.name}</div>
+          <div>{address}</div>
+          <button 
+            className={MoneyMatchButton} 
+            onClick={disconnect as any}
+          >
+            Disconnect
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="main">
+          {connectors.map((connector) => (
+            <button
+              className={MoneyMatchButton}
+              disabled={!connector.ready}
+              key={connector.id}
+              onClick={() => connect({ connector })}
+            >
+              {connector.name}
+              {!connector.ready && " (unsupported)"}
+              {isLoading &&
+                connector.id === pendingConnector?.id &&
+                " (connecting)"}
+            </button>
+          ))}
+          {error && <div>{error.message}</div>}
+        </div>
+      );
+    }
+  }
+
   return (
     <main className={Main}>
       <header className={Header}>
@@ -271,7 +317,7 @@ export function App() {
             <h1>MoneyMatch</h1>
           </div>
           <div>
-            <ConnectButton />
+            <Profile />
           </div>
         </nav>
       </header>

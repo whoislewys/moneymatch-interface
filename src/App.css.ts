@@ -4,18 +4,7 @@ import {
   violetDark,
   violetDarkA,
 } from '@radix-ui/colors';
-import { globalFontFace, globalStyle, style } from '@vanilla-extract/css';
-
-const rubik = 'GlobalRubik';
-const rubikPuddles = 'GlobalRubikPuddles';
-
-globalFontFace(rubik, {
-  src: './fonts/Rubik-VariableFont_wght.ttf'
-})
-
-globalFontFace(rubikPuddles, {
-  src: './src/fonts/RubikPuddles-Regular.ttf'
-})
+import {  globalStyle, style } from '@vanilla-extract/css';
 
 // Reset
 globalStyle('html', {
@@ -30,11 +19,11 @@ globalStyle('body', {
   margin: 0,
 });
 
-globalStyle('p, h1, h2, h3, h4, h5, h6', {
+globalStyle('p, h2, h3, h4, h5, h6', {
   margin: 0,
   padding: 0,
   border: 0,
-  fontFamily: rubik
+  fontFamily: 'Rubik',
 });
 
 globalStyle('h1', {
@@ -42,7 +31,7 @@ globalStyle('h1', {
   padding: 0,
   border: 0,
   fontSize: '2.25rem',
-  fontFamily: rubikPuddles
+  fontFamily: 'RubikPuddles',
 });
 
 globalStyle('#root', {

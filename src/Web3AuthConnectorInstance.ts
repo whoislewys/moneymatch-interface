@@ -10,8 +10,8 @@ export default function Web3AuthConnectorInstance(chains: Chain[]) {
   const name = 'Money Match';
   const iconUrl = 'https://web3auth.io/docs/contents/logo-ethereum.png';
   const clientId = import.meta.env?.VITE_WEB3AUTH_CLIENT_ID;
-  // const activeChainId = "0x13881"; // Mumbai
-  const activeChainId = '0x14A33'; // base
+  const activeChainId = "0x13881"; // Mumbai
+  // const activeChainId = '0x14A33'; // base
   const web3AuthInstance = new Web3Auth({
     clientId: clientId,
     chainConfig: {

@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import TextInput from './TextInput';
-import { Address, useAccount } from 'wagmi';
+import { Address, useAccount, useBalance } from 'wagmi';
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -21,6 +21,7 @@ import {
 } from './App.css';
 import { LoadingRipple } from './LoadingRipple';
 import { ChevronDown } from './ChevronDown';
+import { Account } from './components';
 
 export const CreateBet = ({
   isP1Active,
@@ -87,6 +88,9 @@ export const CreateBet = ({
     return isWriteLoading || isWaitLoading;
   }, [isWriteLoading, isWaitLoading]);
   console.log('isLoading: ', isLoading);
+
+  const { data: balance } = useBalance({address: p1Address});
+  console.log(345, balance)
 
   return (
     <>

@@ -17,6 +17,12 @@ export default function Web3AuthConnectorInstance(chains: Chain[]) {
     chainConfig: {
       chainNamespace: CHAIN_NAMESPACES.EIP155,
       chainId: activeChainId,
+      decimals: 18,
+      blockExplorer: 'https://goerli.basescan.org',
+      displayName: 'Base Goerli',
+      rpcTarget: 'https://goerli.base.org',
+      ticker: 'ETH',
+      tickerName: 'Ethereum',
     },
   });
 

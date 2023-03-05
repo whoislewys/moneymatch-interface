@@ -7,10 +7,12 @@ export const baseGoerli: Chain = {
   nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://goerli.base.org"]
+      http: ["https://goerli.base.org"],
+      webSocket: ["wss://goerli.base.org"],
     },
     public: {
-      http: ["https://goerli.base.org"]
+      http: ["https://goerli.base.org"],
+      webSocket: ["wss://goerli.base.org"],
     },
   },
   blockExplorers: {

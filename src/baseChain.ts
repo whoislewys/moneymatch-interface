@@ -8,11 +8,11 @@ export const baseGoerli: Chain = {
   rpcUrls: {
     default: {
       http: ["https://goerli.base.org"],
-      webSocket: ["wss://goerli.base.org"],
+      webSocket: ["wss://goerli.base.org/ws"],
     },
     public: {
       http: ["https://goerli.base.org"],
-      webSocket: ["wss://goerli.base.org"],
+      webSocket: ["wss://goerli.base.org/ws"],
     },
   },
   blockExplorers: {

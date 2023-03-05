@@ -160,7 +160,7 @@ export const CreateBet = ({
               width: '12rem',
             }}
           >
-            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
+            <label style={{ fontSize: '1.0rem' }}>Connect Code</label>
             <TextInput
               value={p1ConnectCode}
               disabled={!isP1Active}
@@ -169,7 +169,7 @@ export const CreateBet = ({
               }}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+            <label style={{ marginTop: '1rem', fontSize: '1.0rem' }}>
               Wallet Address
             </label>
             <TextInput
@@ -180,7 +180,7 @@ export const CreateBet = ({
               value={p1Address}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+            <label style={{ marginTop: '1rem', fontSize: '1.0rem' }}>
               Bet Amount
             </label>
             <TextInput
@@ -217,14 +217,14 @@ export const CreateBet = ({
               width: '12rem',
             }}
           >
-            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
+            <label style={{ fontSize: '1.0rem' }}>Connect Code</label>
             <TextInput
               value={p2ConnectCode}
               disabled={isP1Active}
               onChange={(e: any) => setP2ConnectCode(e.target.value)}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+            <label style={{ marginTop: '1rem', fontSize: '1.0rem' }}>
               Wallet Address
             </label>
             <TextInput
@@ -233,7 +233,7 @@ export const CreateBet = ({
               value={p2Address}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+            <label style={{ marginTop: '1rem', fontSize: '1.0rem' }}>
               Bet Amount
             </label>
             <TextInput

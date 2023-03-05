@@ -4,7 +4,7 @@ import {
   violetDark,
   violetDarkA,
 } from '@radix-ui/colors';
-import {  globalStyle, style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 // Reset
 globalStyle('html', {
@@ -19,7 +19,7 @@ globalStyle('body', {
   margin: 0,
 });
 
-globalStyle('p, h2, h3, h4, h5, h6', {
+globalStyle('p, h2, h3, h4, h5, h6, li, label', {
   margin: 0,
   padding: 0,
   border: 0,
@@ -114,7 +114,6 @@ export const PlayerBox = style({
   width: '15rem',
   padding: '1.5rem',
   borderRadius: '1rem',
-  height: '100%',
   background: mauveDark.mauve3,
 });
 

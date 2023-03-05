@@ -1,18 +1,17 @@
-import * as Separator from '@radix-ui/react-separator';
 import { ethers } from 'ethers';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import {
   Address,
   useAccount,
+  useConnect,
   useContractEvent,
   useContractWrite,
+  useDisconnect,
   usePrepareContractWrite,
   useProvider,
   useSigner,
   useWaitForTransaction,
-  useConnect,
-  useDisconnect,
 } from 'wagmi';
 import { EscrowFactory__factory } from '../types/ethers-contracts/factories/contracts/EscrowFactory__factory';
 import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';

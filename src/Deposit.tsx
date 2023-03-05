@@ -81,7 +81,7 @@ export const Deposit = ({
       </div>
 
       <div className={Players}>
-        <div className={PlayerBox}>
+        <div className={PlayerBox} style={{ height: '100%' }}>
           <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>
             Your Details
           </h3>
@@ -96,21 +96,25 @@ export const Deposit = ({
               width: '12rem',
             }}
           >
-            <label style={{fontSize: '1.2rem'}}>Connect Code</label>
+            <label style={{ fontSize: '1.0rem' }}>Connect Code</label>
             <TextInput
               value={p1ConnectCode}
               disabled
               onChange={() => console.log()}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Wallet Address</label>
+            <label style={{ marginTop: '1rem', fontSize: '1.0rem' }}>
+              Wallet Address
+            </label>
             <TextInput
               disabled
               value={p1Address}
               onChange={() => console.log()}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
+            <label style={{ marginTop: '1rem', fontSize: '1.0rem' }}>
+              Bet Amount
+            </label>
             <TextInput
               disabled
               value={`Ξ ${betAmountStr}`}
@@ -144,7 +148,7 @@ export const Deposit = ({
             */}
         </div>
 
-        <div className={PlayerBox}>
+        <div className={PlayerBox} style={{ height: '100%' }}>
           <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>
             Opponent's Details
           </h3>
@@ -158,14 +162,14 @@ export const Deposit = ({
               width: '12rem',
             }}
           >
-            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
+            <label style={{ fontSize: '1.0rem' }}>Connect Code</label>
             <TextInput
               value={p2ConnectCode}
               disabled
               onChange={() => console.log()}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+            <label style={{ marginTop: '1rem', fontSize: '1.0rem' }}>
               Wallet Address
             </label>
             <TextInput
@@ -174,7 +178,9 @@ export const Deposit = ({
               onChange={() => console.log()}
             />
 
-            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
+            <label style={{ marginTop: '1rem', fontSize: '1.0rem' }}>
+              Bet Amount
+            </label>
             <TextInput
               disabled
               value={`Ξ ${betAmountStr}`}

@@ -274,6 +274,7 @@ export function App() {
     const { disconnect } = useDisconnect();
 
     const formattedAddress = () => {
+      console.log('address: ', address);
       return address ? address.slice(0, 6) + '...' + address.slice(-4) : '';
     };
 

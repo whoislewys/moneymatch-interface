@@ -73,6 +73,7 @@ export const CreateBet = ({
     ),
   });
   const { data, write, isLoading: isWriteLoading } = useContractWrite(config);
+  console.log('write: ', write)
   const { isLoading: isWaitLoading } = useWaitForTransaction({
     hash: data?.hash,
     onSuccess: () => {
@@ -85,6 +86,7 @@ export const CreateBet = ({
   const isLoading = useMemo(() => {
     return isWriteLoading || isWaitLoading;
   }, [isWriteLoading, isWaitLoading]);
+  console.log('isLoading: ', isLoading);
 
   return (
     <>

@@ -114,6 +114,7 @@ export const CreateBet = ({
                 background: 'none',
                 marginTop: '-2px',
                 transition: 'all 0.5s',
+                cursor: 'pointer',
               }}
               className={
                 areInstructionsOpen ? ChevronUpAnimation : ChevronDownAnimation

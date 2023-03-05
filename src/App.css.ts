@@ -114,6 +114,7 @@ export const PlayerBox = style({
   width: '15rem',
   padding: '1.5rem',
   borderRadius: '1rem',
+  height: '100%',
   background: mauveDark.mauve3,
 });
 

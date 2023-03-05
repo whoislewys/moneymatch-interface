@@ -173,7 +173,7 @@ export function App() {
   });
 
   const getScreen = () => {
-    if (activeEscrowAddress === ethers.constants.AddressZero) {
+    if (false && activeEscrowAddress === ethers.constants.AddressZero) {
       // MVP Create Bet Screen. bet amount values hardcoded, p1 fills out his bet copies link, sends it to p2
       return (
         <CreateBet
@@ -190,7 +190,7 @@ export function App() {
       // More advanced Create Bet Screen. for letting two players connect p2p and update bet values in real time
       // return <CreateBetMultiTenant />
     } else if (
-      activeEscrowAddress !== ethers.constants.AddressZero &&
+      true || activeEscrowAddress !== ethers.constants.AddressZero &&
       (!player1HasDeposited || !player2HasDeposited)
     ) {
       // TODO: should i do a time-related check in addition to activeEscrowAddress to account for players playing multiple games?

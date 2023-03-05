@@ -5,12 +5,17 @@ import {
   useAccount,
   useContractWrite,
   usePrepareContractWrite,
-  useSigner,
   useWaitForTransaction,
 } from 'wagmi';
 import { Escrow__factory } from '../types/ethers-contracts/factories/contracts/Escrow__factory';
-import { PlayerBox, Players, PlayerSeparatorContainer } from './App.css';
+import {
+  MoneyMatchButton,
+  PlayerBox,
+  Players,
+  PlayerSeparatorContainer,
+} from './App.css';
 import { LoadingRipple } from './LoadingRipple';
+import TextInput from './TextInput';
 
 export const Deposit = ({
   escrowAddress,
@@ -77,7 +82,9 @@ export const Deposit = ({
 
       <div className={Players}>
         <div className={PlayerBox}>
-          <h3>Your Details</h3>
+          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>
+            Your Details
+          </h3>
 
           <div
             style={{
@@ -89,22 +96,34 @@ export const Deposit = ({
               width: '12rem',
             }}
           >
-            <label>Connect Code</label>
-            <input value={p1ConnectCode} disabled />
+            <label style={{fontSize: '1.2rem'}}>Connect Code</label>
+            <TextInput
+              value={p1ConnectCode}
+              disabled
+              onChange={() => console.log()}
+            />
 
-            <label style={{ marginTop: '1rem' }}>Wallet Address</label>
-            <input disabled value={p1Address} />
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Wallet Address</label>
+            <TextInput
+              disabled
+              value={p1Address}
+              onChange={() => console.log()}
+            />
 
-            <label style={{ marginTop: '1rem' }}>Bet Amount</label>
-            <input disabled value={`Ξ ${betAmountStr}`} />
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
+            <TextInput
+              disabled
+              value={`Ξ ${betAmountStr}`}
+              onChange={() => console.log()}
+            />
           </div>
           {/*TODO: add loading state to button */}
           <button
+            className={MoneyMatchButton}
             style={{
-              marginTop: '1rem',
-              width: '12rem',
+              marginTop: '2rem',
               alignSelf: 'center',
-              height: '1.75rem',
+              width: '15.5rem',
             }}
             disabled={!write || !isP1Active || player1HasDeposited || isLoading}
             onClick={() => {
@@ -126,7 +145,9 @@ export const Deposit = ({
         </div>
 
         <div className={PlayerBox}>
-          <h3>Opponent's Details</h3>
+          <h3 style={{ fontSize: '1.5rem', textDecoration: 'underline' }}>
+            Opponent's Details
+          </h3>
           <div
             style={{
               display: 'flex',
@@ -137,22 +158,36 @@ export const Deposit = ({
               width: '12rem',
             }}
           >
-            <label>Connect Code</label>
-            <input value={p2ConnectCode} disabled />
+            <label style={{ fontSize: '1.2rem' }}>Connect Code</label>
+            <TextInput
+              value={p2ConnectCode}
+              disabled
+              onChange={() => console.log()}
+            />
 
-            <label style={{ marginTop: '1rem' }}>Wallet Address</label>
-            <input disabled value={p2Address} />
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>
+              Wallet Address
+            </label>
+            <TextInput
+              disabled
+              value={p2Address}
+              onChange={() => console.log()}
+            />
 
-            <label style={{ marginTop: '1rem' }}>Bet Amount</label>
-            <input disabled value={`Ξ ${betAmountStr}`} />
+            <label style={{ marginTop: '1rem', fontSize: '1.2rem' }}>Bet Amount</label>
+            <TextInput
+              disabled
+              value={`Ξ ${betAmountStr}`}
+              onChange={() => console.log()}
+            />
           </div>
           {/*TODO: add loading state to button */}
           <button
+            className={MoneyMatchButton}
             style={{
-              marginTop: '1rem',
-              width: '12rem',
+              marginTop: '2rem',
               alignSelf: 'center',
-              height: '1.75rem',
+              width: '15.5rem',
             }}
             disabled={!write || isP1Active || player2HasDeposited || isLoading}
             onClick={() => {
